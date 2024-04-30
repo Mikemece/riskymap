@@ -1,35 +1,39 @@
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
-import { Drawer } from 'expo-router/drawer';
+import { Drawer } from 'expo-router/drawer'
 
-import { HeaderButton } from '../../components/HeaderButton';
+const DrawerLayout = () => {
+    return (
+        <Drawer>
+            <Drawer.Screen
+                name="index"
+                options={{
+                    title: 'Inicio',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: 'green',
+                    }
+                }} />
 
-const DrawerLayout = () => (
-  <Drawer>
-    <Drawer.Screen
-      name="index"
-      options={{
-        headerTitle: 'Home',
-        drawerLabel: 'Home',
-        drawerIcon: ({ size, color }) => <Ionicons name="home-outline" size={size} color={color} />,
-      }}
-    />
-    <Drawer.Screen
-      name="(tabs)"
-      options={{
-        headerTitle: 'Tabs',
-        drawerLabel: 'Tabs',
-        drawerIcon: ({ size, color }) => (
-          <MaterialIcons name="border-bottom" size={size} color={color} />
-        ),
-        headerRight: () => (
-          <Link href="/modal" asChild>
-            <HeaderButton />
-          </Link>
-        ),
-      }}
-    />
-  </Drawer>
-);
+            <Drawer.Screen
+                name="usuarios"
+                options={{
+                    title: 'Usuarios',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: 'green'
+                    }
+                }} />
+            
+            <Drawer.Screen
+                name="login"
+                options={{
+                    title: 'Iniciar sesión',
+                    headerTitleAlign: 'center',
+                    headerStyle: {
+                        backgroundColor: 'green'
+                    }
+                }} />
+        </Drawer>
+    )
+}
 
 export default DrawerLayout;

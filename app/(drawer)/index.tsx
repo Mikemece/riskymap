@@ -1,16 +1,18 @@
-import { Stack } from 'expo-router';
-import { StyleSheet, View } from 'react-native';
+import { Link } from 'expo-router';
+import { Text, View, StyleSheet } from 'react-native';
 
-import { Container } from '~/components/Container';
-import { ScreenContent } from '~/components/ScreenContent';
 
-export default function Home() {
+const Home = () => {
   return (
-    <>
-      <Stack.Screen options={{ title: 'Home' }} />
-      <Container>
-        <ScreenContent path="app/(drawer)/(tabs)/index.tsx" title="Home" />
-      </Container>
-    </>
+    <View style={styles.container}>
+      <Text>Home</Text>
+      <Link href='/usuarios/'>Ir a lista usuarios</Link>
+    </View>
   );
-}
+};
+
+export default Home;
+
+const styles = StyleSheet.create({
+  container: {}
+});
