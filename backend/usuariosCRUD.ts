@@ -61,8 +61,6 @@ export const createUser = async (email: string, password: string) => {
     console.log(e);
     alert('Error al crear usuario: ' + e.message);
   }
-  // const docRef = await addDoc(usuarios_collection, usuario);
-  // console.log("Usuario creado con ID: ", docRef.id);
 }
 
 // Borrar un usuario por ID

@@ -8,7 +8,7 @@ import { Button } from 'tamagui';
 
 const ListUsers = () => {
   return (
-    <View>
+    <View >
       <Text>Lista de Usuarios:</Text>
       <Button onPress={DB.getUsers}>Mostrar usuarios</Button>
       <Text> </Text>
