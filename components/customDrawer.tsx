@@ -1,10 +1,11 @@
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from "@react-navigation/drawer";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { View, Text } from "tamagui";
+import { View, Text, Avatar } from "tamagui";
 import { useRouter } from "expo-router";
-import { Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet } from 'react-native';
+import  theme from '~/components/theme';
 
 
 export default function customDrawer(props: any) {
@@ -14,13 +15,14 @@ export default function customDrawer(props: any) {
 
     return (
         <>
-            <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: '#236f104f', paddingTop: top }}>
-                <TouchableOpacity onPress={() => console.log("TOCADOO")} style={{padding:20}}>
-                    <Image
-                        source={{ uri: 'https://cdn-1.webcatalog.io/catalog/amogus-fun/amogus-fun-icon-filled-256.png?v=1677038647937' }}
-                        style={{ width: 100, height: 100, alignSelf: 'center', borderRadius: 50 }}
-                    />
-
+            <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: theme.colors.greenSecondary, paddingTop: top }}>
+                <TouchableOpacity onPress={() => console.log("TOCADOO")} style={styles.touchable}>
+                    <Avatar circular alignSelf="center" size='$10'>
+                        <Avatar.Image
+                            accessibilityLabel="Avatar"
+                            src='https://cdn-1.webcatalog.io/catalog/amogus-fun/amogus-fun-icon-filled-256.png?v=1677038647937'
+                        />
+                    </Avatar>
                     <Text
                         alignSelf="center"
                         fontSize={20}
@@ -53,3 +55,12 @@ export default function customDrawer(props: any) {
 
     );
 }
+
+
+const styles = StyleSheet.create({
+    touchable: {
+        padding: 20,
+        borderBottomWidth: 2,
+        borderBottomColor: theme.colors.greenPrimary,
+    },
+});

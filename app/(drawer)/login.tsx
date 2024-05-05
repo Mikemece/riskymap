@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, Text } from 'react-native';
-import { Button, Input, SizeTokens, View, XStack, YStack } from 'tamagui'
+import { ActivityIndicator, Text, StyleSheet} from 'react-native';
+import { Button, Input, SizeTokens, XStack } from 'tamagui'
 import { createUser, login } from '~/backend/usuariosCRUD';
+import theme from '~/components/theme';
 import { Container } from '~/tamagui.config'
 
 const Login = () => {
@@ -41,11 +42,11 @@ const Login = () => {
         : <>
           {registerMode ? <>
             <Button margin={'$2'} alignSelf='center' minWidth={100} onPress={() => startSingingUp()}>Registrarse</Button>
-            <Text>¿Ya tienes una cuenta? Inicia sesión pulsando <Text onPress={() => setRegisterMode(false)} style={{ color: 'blue' }}>AQUÍ</Text></Text>
+            <Text>¿Ya tienes una cuenta? Inicia sesión pulsando <Text onPress={() => setRegisterMode(false)} style={styles.linkText}>AQUÍ</Text></Text>
           </>
             : <>
               <Button margin={'$2'} alignSelf='center' minWidth={100} onPress={() => startSinging()}>Iniciar sesión</Button>
-              <Text>¿No tienes cuenta? Regístrate pulsando <Text onPress={() => setRegisterMode(true)} style={{ color: 'blue' }}>AQUÍ</Text></Text>
+              <Text>¿No tienes cuenta? Regístrate pulsando <Text onPress={() => setRegisterMode(true)} style={styles.linkText}>AQUÍ</Text></Text>
             </>
           }
         </>
@@ -65,8 +66,17 @@ function LoginInput(props: { size: SizeTokens, placeholder: string, value: strin
         value={props.value}
         onChangeText={props.onChangeText}
         secureTextEntry={props.secureTextEntry}
-        backgroundColor='#ffff'
-        color='black' />
+        backgroundColor= {theme.colors.white}
+        color= {theme.colors.black} />
     </XStack>
   )
 }
+
+const styles = StyleSheet.create({
+  linkText: {
+    color: theme.colors.darkBlue,
+    fontWeight: 'bold',
+    fontSize: 16
+  }
+
+})

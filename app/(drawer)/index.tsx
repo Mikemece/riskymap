@@ -1,12 +1,12 @@
 import { Link } from 'expo-router';
 import { Text, View, StyleSheet } from 'react-native';
+import MapView from 'react-native-maps';
 
 
 const Home = () => {
   return (
     <View style={styles.container}>
-      <Text>Home</Text>
-      <Link href='/usuarios/'>Ir a lista usuarios</Link>
+      <MapView style={styles.map} />
     </View>
   );
 };
@@ -14,5 +14,12 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  container: {}
+  container: {
+    flex: 1,
+  },
+  map: {
+    width: '100%',
+    height: '100%',
+  },
 });
+

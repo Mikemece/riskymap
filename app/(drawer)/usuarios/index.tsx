@@ -1,6 +1,5 @@
 import {Text, View} from 'react-native';
-import * as DB from '../../../backend/usuariosCRUD';
-import { Constants } from 'expo-constants';
+import * as DB from '~/backend/usuariosCRUD';
 import { Button } from 'tamagui';
 
 

@@ -1,19 +1,21 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer'
 import customDrawer from '~/components/customDrawer';
+import theme from '~/components/theme';	
 
 const DrawerLayout = () => {
     return (
         <Drawer 
         drawerContent={customDrawer} 
         screenOptions={{
-            drawerActiveBackgroundColor: '#1a8100',
-            drawerActiveTintColor: 'white',
+            drawerActiveBackgroundColor: theme.colors.greenPrimary,
+            drawerActiveTintColor: theme.colors.white,
             drawerLabelStyle: {
+                paddingTop: 10,
+                paddingBottom: 10,
                 marginLeft: -15,
                 fontWeight: 'bold'
-            }
-
+            },
         }}>
             <Drawer.Screen 
                 name="index"
@@ -24,7 +26,7 @@ const DrawerLayout = () => {
                         <Ionicons name="home-outline" size={size} color={color} />
                     ),
                     headerStyle: {
-                        backgroundColor: 'green',
+                        backgroundColor: theme.colors.greenPrimary,
                     }
                 }} />
 
@@ -37,7 +39,7 @@ const DrawerLayout = () => {
                         <Ionicons name="people-outline" size={size} color={color} />
                     ),
                     headerStyle: {
-                        backgroundColor: 'green'
+                        backgroundColor: theme.colors.greenPrimary
                     }
                 }} />
 
@@ -50,7 +52,7 @@ const DrawerLayout = () => {
                         <Ionicons name="finger-print" size={size} color={color} />
                     ),
                     headerStyle: {
-                        backgroundColor: 'green'
+                        backgroundColor: theme.colors.greenPrimary
                     }
                 }} />
         </Drawer>
