@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Platform } from 'react-native';
 import MapView from '~/components/mymap';
 import * as Location from 'expo-location';
-import { Button } from 'tamagui';
-import { Marker } from 'react-native-maps';
+import { Button} from 'tamagui';
+import { Marker, Circle} from 'react-native-maps';
+import theme from '~/components/theme';
 
 const Home = () => {
 
@@ -45,8 +46,11 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <MapView region={region} style={styles.map} />
-      <Marker coordinate={region2} title='Mi posición' description='Estoy aquí' />
+      <MapView region={region} style={styles.map}>
+        <Marker coordinate={region}/>
+        <Circle center={region} radius={10000} fillColor={theme.colors.greenSecondary} strokeColor={theme.colors.greenPrimary} strokeWidth={2} />
+      </MapView>
+
       <Button onPress={userLocation}>Actualizar</Button>
     </View>
   );
@@ -60,7 +64,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '90%',
+    height: '95%',
   },
 });
 
