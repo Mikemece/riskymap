@@ -1,12 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer'
-import customDrawer from '~/components/customDrawer';
+import CustomDrawer from '~/components/CustomDrawer';
 import theme from '~/components/theme';	
 
 const DrawerLayout = () => {
     return (
         <Drawer 
-        drawerContent={customDrawer} 
+        drawerContent={CustomDrawer} 
         screenOptions={{
             drawerActiveBackgroundColor: theme.colors.greenPrimary,
             drawerActiveTintColor: theme.colors.white,

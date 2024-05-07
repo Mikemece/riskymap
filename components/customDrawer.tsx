@@ -5,10 +5,10 @@ import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet } from 'react-native';
-import  theme from '~/components/theme';
+import theme from '~/components/theme';
 
 
-export default function customDrawer(props: any) {
+export default function CustomDrawer(props: any) {
 
     const router = useRouter()
     const { top, bottom } = useSafeAreaInsets();
@@ -30,7 +30,7 @@ export default function customDrawer(props: any) {
                         paddingTop={10}
                         color="black">Among Us</Text>
                 </TouchableOpacity>
-                <DrawerItemList {...props}  />
+                <DrawerItemList {...props} />
             </DrawerContentScrollView>
 
 
