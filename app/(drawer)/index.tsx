@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Text, View, StyleSheet, Platform } from 'react-native';
-import MapView from '~/components/mymap';
+import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Button} from 'tamagui';
 import { Marker, Circle} from 'react-native-maps';
 import theme from '~/components/theme';
 
 const Home = () => {
-
-  const region2 = {
-    latitude: 37.78825,
-    longitude: -122.4324,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421
-  }
 
   const [region, setRegion] = useState({
     latitude: 37.78825,
@@ -46,17 +39,18 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <MapView region={region} style={styles.map}>
+       <MapView region={region} style={styles.map}>
         <Marker coordinate={region}/>
         <Circle center={region} radius={10000} fillColor={theme.colors.greenSecondary} strokeColor={theme.colors.greenPrimary} strokeWidth={2} />
-      </MapView>
-
+     </MapView>
       <Button onPress={userLocation}>Actualizar</Button>
     </View>
   );
 };
 
 export default Home;
+
+
 
 const styles = StyleSheet.create({
   container: {
