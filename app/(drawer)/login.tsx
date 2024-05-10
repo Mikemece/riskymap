@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, StyleSheet} from 'react-native';
-import { Button, Input, SizeTokens, XStack } from 'tamagui'
+import { Button}  from 'tamagui'
 import { createUser, login } from '~/backend/usuariosCRUD';
+import { FormInput } from '~/components/FormInput';
 import theme from '~/components/theme';
 import { Container } from '~/tamagui.config'
 
@@ -35,9 +36,9 @@ const Login = () => {
 
   return (
     <Container>
-      <LoginInput size="$5" placeholder='Introduce tu email...' value={email} onChangeText={(text) => setEmail(text)} />
-      <LoginInput size="$5" placeholder='Introduce tu contraseña...' value={password} onChangeText={(text) => setPassword(text)} secureTextEntry={true} />
-      {registerMode && <LoginInput size="$5" placeholder='Repite la contraseña...' value={password2} onChangeText={(text) => setPassword2(text)} secureTextEntry={true} />}
+      <FormInput size="$5" placeholder='Introduce tu email...' value={email} onChangeText={(text) => setEmail(text)} />
+      <FormInput size="$5" placeholder='Introduce tu contraseña...' value={password} onChangeText={(text) => setPassword(text)} secureTextEntry={true} />
+      {registerMode && <FormInput size="$5" placeholder='Repite la contraseña...' value={password2} onChangeText={(text) => setPassword2(text)} secureTextEntry={true} />}
       {loading ? <ActivityIndicator size='large' color='black' />
         : <>
           {registerMode ? <>
@@ -56,21 +57,6 @@ const Login = () => {
 }
 
 export default Login
-
-function LoginInput(props: { size: SizeTokens, placeholder: string, value: string, onChangeText: (value: string) => void, secureTextEntry?: boolean }) {
-  return (
-    <XStack margin='$4'>
-      <Input flex={1}
-        size={props.size}
-        placeholder={props.placeholder}
-        value={props.value}
-        onChangeText={props.onChangeText}
-        secureTextEntry={props.secureTextEntry}
-        backgroundColor= {theme.colors.white}
-        color= {theme.colors.black} />
-    </XStack>
-  )
-}
 
 const styles = StyleSheet.create({
   linkText: {

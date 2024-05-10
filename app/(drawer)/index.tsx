@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import MapView, { LatLng } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Button, Dialog } from 'tamagui';
 import { Marker, Circle } from 'react-native-maps';
 import theme from '~/components/theme';
 import { CustomMarker } from '~/components/CustomMarker';
+import { NewRiskButton } from '~/components/NewRiskButton';
 
 const Home = () => {
 
@@ -40,11 +41,26 @@ const Home = () => {
 
   return (
     <View style={styles.container}>
-      <MapView region={region} style={styles.map}>
-        <CustomMarker coords={region} ></CustomMarker>
-        <Circle center={region} radius={10000} fillColor={theme.colors.greenSecondary} strokeColor={theme.colors.greenPrimary} strokeWidth={2} />
+      <MapView
+        region={region}
+        style={styles.map}
+        rotateEnabled={false}>
+        <CustomMarker coords={region} />
+        <Circle
+          center={region}
+          radius={10000}
+          fillColor={theme.colors.greenSecondary}
+          strokeColor={theme.colors.greenPrimary}
+          strokeWidth={2}
+        />
       </MapView>
-      <Button onPress={userLocation}>Actualizar</Button>
+      <Button
+        position='absolute'
+        bottom={20}
+        onPress={userLocation}
+      >Actualizar
+      </Button>
+      <NewRiskButton />
     </View>
   );
 };
@@ -58,7 +74,7 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '100%',
-    height: '95%',
-  },
+    height: '100%',
+  }
 });
 

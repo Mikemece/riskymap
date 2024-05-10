@@ -20,10 +20,10 @@ const DrawerLayout = () => {
             <Drawer.Screen 
                 name="index"
                 options={{
-                    title: 'Inicio',
+                    title: 'Mapa',
                     headerTitleAlign: 'center',
                     drawerIcon: ({ size, color }) => (
-                        <Ionicons name="home-outline" size={size} color={color} />
+                        <Ionicons name="map-outline" size={size} color={color} />
                     ),
                     headerStyle: {
                         backgroundColor: theme.colors.greenPrimary,
