@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { FIREBASE_DB } from './firebaseConfig'
 import { FIREBASE_AUTH } from './firebaseConfig'
-import { collection, addDoc, deleteDoc, getDocs, getDoc, setDoc, doc } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, getDoc, setDoc, doc } from 'firebase/firestore';
 
 //<---------------------   CONSTANTES    -------------------------------->
 const DB = FIREBASE_DB;

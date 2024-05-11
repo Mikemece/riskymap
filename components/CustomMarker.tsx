@@ -36,6 +36,12 @@ export const CustomMarker = (props: { coords: LatLng }) => {
             />
             <Dialog.Close asChild >
               <Button
+                textAlign='center'
+                width={200}
+                alignSelf="center"
+                fontSize={20}
+                height={50}
+                borderRadius={20}
                 backgroundColor={theme.colors.greenPrimary}
                 pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
               >Cerrar

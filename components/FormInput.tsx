@@ -3,7 +3,7 @@ import theme from "./theme"
 
 export const FormInput = (props: { size: SizeTokens, placeholder: string, value: string, onChangeText: (value: string) => void, secureTextEntry?: boolean }) => {
     return (
-      <XStack margin='$4'>
+      <XStack margin={15}>
         <Input flex={1}
           size={props.size}
           placeholder={props.placeholder}
@@ -11,7 +11,9 @@ export const FormInput = (props: { size: SizeTokens, placeholder: string, value:
           onChangeText={props.onChangeText}
           secureTextEntry={props.secureTextEntry}
           backgroundColor= {theme.colors.white}
-          color= {theme.colors.black} />
+          borderColor={theme.colors.black}
+          color= {theme.colors.black} 
+          />
       </XStack>
     )
   }
