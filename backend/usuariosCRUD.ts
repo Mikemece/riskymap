@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { FIREBASE_DB } from './firebaseConfig'
 import { FIREBASE_AUTH } from './firebaseConfig'
 import { collection, deleteDoc, getDocs, getDoc, setDoc, doc } from 'firebase/firestore';
@@ -25,18 +25,6 @@ export const getUser = async (id: string) => {
     console.log("USUARIO: ", usuario.data());
   } else {
     console.log("NO EXISTE USUARIO: ", id);
-  }
-}
-
-// Iniciar sesión
-export const login = async (email: string, password: string) => {
-  try {
-    const response = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
-    console.log("Usuario logueado: ", response.user);
-    alert("Usuario logueado: " + response.user.email);
-  } catch (e: any) {
-    console.log(e);
-    alert('Error al iniciar sesión: ' + e.message);
   }
 }
 
@@ -67,4 +55,27 @@ export const createUser = async (email: string, password: string) => {
 export const deleteUser = async (id: string) => {
   const usuarioABorrar = doc(usuarios_collection, id);
   await deleteDoc(usuarioABorrar);
+}
+
+// Iniciar sesión
+export const login = async (email: string, password: string) => {
+  try {
+    const response = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
+    console.log("Usuario logueado: ", response.user);
+    alert("Usuario logueado: " + response.user.email);
+  } catch (e: any) {
+    console.log(e);
+    alert('Error al iniciar sesión: ' + e.message);
+  }
+}
+
+// Cerrar sesión
+export const logout = async () => {
+  try {
+    FIREBASE_AUTH.signOut();
+    alert("Sesión cerrada correctamente");
+  } catch (e: any) {
+    console.log(e);
+    alert('Error al cerrar sesión: ' + e.message);
+  }
 }

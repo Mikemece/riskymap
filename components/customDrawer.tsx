@@ -6,6 +6,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet } from 'react-native';
 import theme from '~/components/theme';
+import { logout } from "~/backend/usuariosCRUD";
+import { FIREBASE_AUTH } from "~/backend/firebaseConfig";
 
 
 export default function CustomDrawer(props: any) {
@@ -38,7 +40,7 @@ export default function CustomDrawer(props: any) {
                 <DrawerItem
                     label="Cerrar sesión"
                     inactiveTintColor="red"
-                    onPress={() => router.navigate('/')}
+                    onPress={() => logout()}
                     icon={({ size, color }) => <Ionicons name="exit-outline" size={size} color={color} />}
                 />
             </View>

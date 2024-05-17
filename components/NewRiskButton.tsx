@@ -1,4 +1,4 @@
-import { Button, Dialog, View } from "tamagui";
+import { Button, Dialog, Unspaced, View } from "tamagui";
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import theme from "./theme";
 import { FormInput } from "./FormInput";
@@ -6,9 +6,11 @@ import { useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { createRisk } from "~/backend/emergenciasCRUD";
 import * as Location from 'expo-location';
+import { Ionicons } from "@expo/vector-icons";
 
 export const NewRiskButton = () => {
 
+    const [open, setOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [loading, setLoading] = useState(false);
@@ -30,13 +32,16 @@ export const NewRiskButton = () => {
         }
         let location = await Location.getCurrentPositionAsync({ accuracy: 2 });
         let coords: Coord = { latitude: location.coords.latitude, longitude: location.coords.longitude };
-        createRisk(title, category, coords);
-        setLoading(false);
+        createRisk(title, category, coords).then(() => {
+            ;
+            setLoading(false);
+            setOpen(false);
+        });
     }
 
     return (
         <>
-            <Dialog>
+            <Dialog open={open}>
                 <Dialog.Trigger asChild>
                     <Button
                         position='absolute'
@@ -49,6 +54,7 @@ export const NewRiskButton = () => {
                         borderRadius={50}
                         backgroundColor={theme.colors.greenPrimary}
                         pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
+                        onPress={() => setOpen(true)}
                     >+
                     </Button>
                 </Dialog.Trigger>
@@ -59,6 +65,7 @@ export const NewRiskButton = () => {
                         style={{ opacity: 0.5 }}
                         enterStyle={{ opacity: 0 }}
                         exitStyle={{ opacity: 0 }}
+                        onPress={() => setOpen(false)}
                     />
                     <Dialog.Content
                         width={"95%"}
@@ -72,6 +79,15 @@ export const NewRiskButton = () => {
                         backgroundColor={theme.colors.greenLight}
                     >
                         <Dialog.Title textAlign="center" color={theme.colors.black}>Nuevo riesgo</Dialog.Title>
+                            <Button
+                                position="absolute"
+                                top={13}
+                                right={15}
+                                size="$2"
+                                circular
+                                icon={<Ionicons name="close" size={20}></Ionicons>}
+                                onPress={() => setOpen(false)}
+                            />
                         <View>
                             <FormInput
                                 size="$5"
@@ -91,21 +107,23 @@ export const NewRiskButton = () => {
                                 value={category}
                                 onChange={item => { setCategory(item.value); }} />
                         </View>
-                        <Dialog.Close asChild >
+                        <Dialog.Close marginTop={10}>
                             {loading ? <ActivityIndicator size='large' color={theme.colors.greenPrimary} />
                                 :
-                                <Button
-                                    textAlign='center'
-                                    width={200}
-                                    alignSelf="center"
-                                    fontSize={20}
-                                    height={50}
-                                    borderRadius={20}
-                                    backgroundColor={theme.colors.greenPrimary}
-                                    pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
-                                    onPress={newRisk}
-                                >Crear
-                                </Button>
+                                <>
+                                    <Button
+                                        textAlign='center'
+                                        width={200}
+                                        alignSelf="center"
+                                        fontSize={20}
+                                        height={50}
+                                        borderRadius={20}
+                                        backgroundColor={theme.colors.greenPrimary}
+                                        pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
+                                        onPress={newRisk}
+                                    >Crear
+                                    </Button>
+                                </>
                             }
 
                         </Dialog.Close>

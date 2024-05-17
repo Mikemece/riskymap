@@ -1,12 +1,16 @@
+import { router } from 'expo-router';
+import { User, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, StyleSheet} from 'react-native';
 import { Button}  from 'tamagui'
+import { FIREBASE_AUTH } from '~/backend/firebaseConfig';
 import { createUser, login } from '~/backend/usuariosCRUD';
 import { FormInput } from '~/components/FormInput';
 import theme from '~/components/theme';
 import { Container } from '~/tamagui.config'
 
 const Login = () => {
+  const [user, setUser] = useState<User | null>(null);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,20 +37,27 @@ const Login = () => {
     });
   }
 
+  useEffect(() => {
+    onAuthStateChanged(FIREBASE_AUTH, (user) => {
+      console.log('USUARIO: ', user);
+      setUser(user);
+    });
+  }, [])
+
 
   return (
-    <Container>
+    <Container alignItems='center' justifyContent='center'>
       <FormInput size="$5" placeholder='Introduce tu email...' value={email} onChangeText={(text) => setEmail(text)} />
       <FormInput size="$5" placeholder='Introduce tu contraseña...' value={password} onChangeText={(text) => setPassword(text)} secureTextEntry={true} />
       {registerMode && <FormInput size="$5" placeholder='Repite la contraseña...' value={password2} onChangeText={(text) => setPassword2(text)} secureTextEntry={true} />}
       {loading ? <ActivityIndicator size='large' color='black' />
         : <>
           {registerMode ? <>
-            <Button margin={'$2'} alignSelf='center' minWidth={100} onPress={() => startSingingUp()}>Registrarse</Button>
+            <Button margin={20} alignSelf='center' minWidth={100} onPress={() => startSingingUp()}>Registrarse</Button>
             <Text>¿Ya tienes una cuenta? Inicia sesión pulsando <Text onPress={() => setRegisterMode(false)} style={styles.linkText}>AQUÍ</Text></Text>
           </>
             : <>
-              <Button margin={'$2'} alignSelf='center' minWidth={100} onPress={() => startSinging()}>Iniciar sesión</Button>
+              <Button margin={20} alignSelf='center' minWidth={100} onPress={() => startSinging()}>Iniciar sesión</Button>
               <Text>¿No tienes cuenta? Regístrate pulsando <Text onPress={() => setRegisterMode(true)} style={styles.linkText}>AQUÍ</Text></Text>
             </>
           }
