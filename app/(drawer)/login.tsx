@@ -1,17 +1,13 @@
 import { router } from 'expo-router';
-import { User, onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ActivityIndicator, Text, StyleSheet} from 'react-native';
 import { Button}  from 'tamagui'
-import { FIREBASE_AUTH } from '~/backend/firebaseConfig';
 import { createUser, login } from '~/backend/usuariosCRUD';
 import { FormInput } from '~/components/FormInput';
 import theme from '~/components/theme';
 import { Container } from '~/tamagui.config'
 
 const Login = () => {
-  const [user, setUser] = useState<User | null>(null);
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
@@ -20,8 +16,14 @@ const Login = () => {
 
   const startSinging = () => {
     setLoading(true);
-    login(email, password).then(() => {
+    login(email, password).then((user) => {
+      alert(user?.email);
       setLoading(false);
+      if (user){
+        router.navigate('/');
+        setEmail('');
+        setPassword('');
+      } 
     });
   }
 
@@ -32,17 +34,16 @@ const Login = () => {
       setLoading(false);
       return;
     }
-    createUser(email, password).then(() => {
+    createUser(email, password).then((user) => {
       setLoading(false);
+      if (user){
+        router.navigate('/');
+        setEmail('');
+        setPassword('');
+        setPassword2('');
+      }
     });
   }
-
-  useEffect(() => {
-    onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log('USUARIO: ', user);
-      setUser(user);
-    });
-  }, [])
 
 
   return (
@@ -75,5 +76,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16
   }
-
 })

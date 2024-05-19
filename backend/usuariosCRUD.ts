@@ -44,6 +44,7 @@ export const createUser = async (email: string, password: string) => {
     await setDoc(doc(usuarios_collection, response.user.uid), usuario);
     console.log("Usuario creado con ID: ", response.user.uid);
     alert("Usuario creado correctamente");
+    return (usuario)
 
   } catch (e: any) {
     console.log(e);
@@ -61,8 +62,7 @@ export const deleteUser = async (id: string) => {
 export const login = async (email: string, password: string) => {
   try {
     const response = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
-    console.log("Usuario logueado: ", response.user);
-    alert("Usuario logueado: " + response.user.email);
+    return (response.user)
   } catch (e: any) {
     console.log(e);
     alert('Error al iniciar sesión: ' + e.message);

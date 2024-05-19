@@ -1,23 +1,28 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer'
+import { useContext } from 'react';
 import CustomDrawer from '~/components/CustomDrawer';
-import theme from '~/components/theme';	
+import { UserContext } from '~/components/UserContext';
+import theme from '~/components/theme';
 
 const DrawerLayout = () => {
+
+    const user = useContext(UserContext);
+
     return (
-        <Drawer 
-        drawerContent={CustomDrawer} 
-        screenOptions={{
-            drawerActiveBackgroundColor: theme.colors.greenPrimary,
-            drawerActiveTintColor: theme.colors.white,
-            drawerLabelStyle: {
-                paddingTop: 10,
-                paddingBottom: 10,
-                marginLeft: -15,
-                fontWeight: 'bold'
-            },
-        }}>
-            <Drawer.Screen 
+        <Drawer
+            drawerContent={CustomDrawer}
+            screenOptions={{
+                drawerActiveBackgroundColor: theme.colors.greenPrimary,
+                drawerActiveTintColor: theme.colors.white,
+                drawerLabelStyle: {
+                    paddingTop: 10,
+                    paddingBottom: 10,
+                    marginLeft: -15,
+                    fontWeight: 'bold'
+                },
+            }}>
+            <Drawer.Screen
                 name="index"
                 options={{
                     title: 'Mapa',
@@ -53,7 +58,8 @@ const DrawerLayout = () => {
                     ),
                     headerStyle: {
                         backgroundColor: theme.colors.greenPrimary
-                    }
+                    },
+                    drawerItemStyle: user ? { display: 'none' } : {}
                 }} />
         </Drawer>
     )
