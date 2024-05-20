@@ -2,13 +2,17 @@ import { Button, Dialog, Unspaced, View } from "tamagui";
 import { ActivityIndicator, StyleSheet } from 'react-native';
 import theme from "./theme";
 import { FormInput } from "./FormInput";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { createRisk } from "~/backend/emergenciasCRUD";
 import * as Location from 'expo-location';
 import { Ionicons } from "@expo/vector-icons";
+import { UserContext } from '~/components/UserContext';
+
 
 export const NewRiskButton = () => {
+    
+    const user = useContext(UserContext);
 
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState('');
@@ -54,7 +58,7 @@ export const NewRiskButton = () => {
                         borderRadius={50}
                         backgroundColor={theme.colors.greenPrimary}
                         pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
-                        onPress={() => setOpen(true)}
+                        onPress={user ? () => setOpen(true) : () => alert('Debes iniciar sesión para poder crear un riesgo')}
                     >+
                     </Button>
                 </Dialog.Trigger>

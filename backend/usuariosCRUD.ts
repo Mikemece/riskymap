@@ -23,17 +23,27 @@ export const getUser = async (id: string) => {
   const usuario = await getDoc(docRef);
   if (usuario.exists()) {
     console.log("USUARIO: ", usuario.data());
+    const usuarioDevuelto: Usuario = {
+      nombre: usuario.data().nombre,
+      email: usuario.data().email,
+      contraseña: usuario.data().contraseña,
+      fotoURL: usuario.data().fotoURL,
+      rango: usuario.data().rango,
+      registros: usuario.data().registros,
+      votos: usuario.data().votos
+    }
+    return usuarioDevuelto;
   } else {
     console.log("NO EXISTE USUARIO: ", id);
   }
 }
 
 // Crear un usuario
-export const createUser = async (email: string, password: string) => {
+export const createUser = async (email: string, password: string, username: string) => {
   try {
     const response = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
     const usuario: Usuario = {
-      nombre: email,
+      nombre: username,
       email: email,
       contraseña: password,
       fotoURL: '',
@@ -43,7 +53,7 @@ export const createUser = async (email: string, password: string) => {
     }
     await setDoc(doc(usuarios_collection, response.user.uid), usuario);
     console.log("Usuario creado con ID: ", response.user.uid);
-    alert("Usuario creado correctamente");
+    alert("¡Bienvenido " + username + " a Riskymap! Podrás completar tu perfil pulsando en tu nombre de usuario en el menú de la izquierda");
     return (usuario)
 
   } catch (e: any) {

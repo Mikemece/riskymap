@@ -1,12 +1,26 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { Button } from 'tamagui'
+import { UserContext } from '~/components/UserContext';
+import { useLocalSearchParams } from 'expo-router';
+import { getUser } from '~/backend/usuariosCRUD';
 
-type Props = {}
+const Usuario = () => {
+  const myUser = useContext(UserContext);
+  const { id } = useLocalSearchParams<{id: string}>();
+  const editable = myUser?.uid === id;
 
-const Usuario = (props: Props) => {
+  const [activeUser, setActiveUser] = useState<Usuario | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      getUser(id).then(user => setActiveUser(user || null));
+    }
+  }, [id]);
+
   return (
     <View>
-      <Text>[id]</Text>
+      <Text>Usuario {activeUser?.nombre}</Text>
     </View>
   )
 }

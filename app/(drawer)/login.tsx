@@ -1,7 +1,7 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { ActivityIndicator, Text, StyleSheet} from 'react-native';
-import { Button}  from 'tamagui'
+import { ActivityIndicator, Text, StyleSheet } from 'react-native';
+import { Button } from 'tamagui'
 import { createUser, login } from '~/backend/usuariosCRUD';
 import { FormInput } from '~/components/FormInput';
 import theme from '~/components/theme';
@@ -11,6 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [registerMode, setRegisterMode] = useState(false);
 
@@ -19,11 +20,11 @@ const Login = () => {
     login(email, password).then((user) => {
       alert(user?.email);
       setLoading(false);
-      if (user){
+      if (user) {
         router.navigate('/');
         setEmail('');
         setPassword('');
-      } 
+      }
     });
   }
 
@@ -34,13 +35,14 @@ const Login = () => {
       setLoading(false);
       return;
     }
-    createUser(email, password).then((user) => {
+    createUser(email, password, username).then((user) => {
       setLoading(false);
-      if (user){
+      if (user) {
         router.navigate('/');
         setEmail('');
         setPassword('');
         setPassword2('');
+        setUsername('');
       }
     });
   }
@@ -50,7 +52,11 @@ const Login = () => {
     <Container alignItems='center' justifyContent='center'>
       <FormInput size="$5" placeholder='Introduce tu email...' value={email} onChangeText={(text) => setEmail(text)} />
       <FormInput size="$5" placeholder='Introduce tu contraseña...' value={password} onChangeText={(text) => setPassword(text)} secureTextEntry={true} />
-      {registerMode && <FormInput size="$5" placeholder='Repite la contraseña...' value={password2} onChangeText={(text) => setPassword2(text)} secureTextEntry={true} />}
+      {registerMode && <>
+        <FormInput size="$5" placeholder='Repite la contraseña...' value={password2} onChangeText={(text) => setPassword2(text)} secureTextEntry={true} />
+        <FormInput size="$5" placeholder='Escoge un nombre de usuario...' value={username} onChangeText={(text) => setUsername(text)} />
+      </>
+      }
       {loading ? <ActivityIndicator size='large' color='black' />
         : <>
           {registerMode ? <>

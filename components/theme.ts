@@ -3,6 +3,7 @@ const theme = {
         greenPrimary: '#1a8100',
         greenPrimaryPressed: '#1e5f0e',
         greenSecondary: '#236f104f',
+        greenDrawerLink: '#bbd2b6',
         greenLight: '#e7ffe6',
         redPrimary: '#ff0000',
         redSecondary: '#ff000026',

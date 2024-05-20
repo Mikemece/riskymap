@@ -1,13 +1,14 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useLocalSearchParams } from 'expo-router';
 import { Drawer } from 'expo-router/drawer'
 import { useContext } from 'react';
 import CustomDrawer from '~/components/CustomDrawer';
 import { UserContext } from '~/components/UserContext';
 import theme from '~/components/theme';
-
 const DrawerLayout = () => {
 
     const user = useContext(UserContext);
+    const { id } = useLocalSearchParams<{id: string}>();
 
     return (
         <Drawer
@@ -38,14 +39,15 @@ const DrawerLayout = () => {
             <Drawer.Screen
                 name="usuarios"
                 options={{
-                    title: 'Usuarios',
+                    title: 'Detalles del usuario',
                     headerTitleAlign: 'center',
                     drawerIcon: ({ size, color }) => (
                         <Ionicons name="people-outline" size={size} color={color} />
                     ),
                     headerStyle: {
                         backgroundColor: theme.colors.greenPrimary
-                    }
+                    },
+                    drawerItemStyle: { display: 'none' }
                 }} />
 
             <Drawer.Screen

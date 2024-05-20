@@ -11,6 +11,7 @@ export const UserProvider = ({ children }: any) => {
     useEffect(() => {
         onAuthStateChanged(FIREBASE_AUTH, (user) => {
             setUser(user);
+            console.log(user);
         });
     }, []);
 
