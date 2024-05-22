@@ -42,10 +42,10 @@ export default function CustomDrawer(props: any) {
                         router.navigate('/login');
                     }}
                     style={styles.touchable}>
-                    <Avatar circular alignSelf="center" size='$10'>
+                    <Avatar circular alignSelf="center" size='$10' borderWidth={1}>
                         <Avatar.Image
                             accessibilityLabel="Avatar"
-                            src={myUser && myUser.fotoURL !== '' ? 'https://cdn-1.webcatalog.io/catalog/amogus-fun/amogus-fun-icon-filled-256.png?v=1677038647937'
+                            src={myUser && myUser.fotoURL !== '' ? myUser.fotoURL
                                 : 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg'
                             }
                         />

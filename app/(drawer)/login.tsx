@@ -78,7 +78,7 @@ export default Login
 
 const styles = StyleSheet.create({
   linkText: {
-    color: theme.colors.darkBlue,
+    color: theme.colors.blueLink,
     fontWeight: 'bold',
     fontSize: 16
   }
