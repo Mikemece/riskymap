@@ -2,10 +2,16 @@ import { Progress, Text } from "tamagui"
 import theme from "./theme"
 
 export const RankSlider = (props: { votes: number }) => {
+
+    let renderedVotes = props.votes;
+    while (renderedVotes >= 50) {
+        renderedVotes -= 50;
+    }
+
     return (
         <>
             <Progress 
-                value={props.votes * 2} 
+                value={renderedVotes * 2} 
                 width={250} 
                 height={10} 
                 backgroundColor={theme.colors.blueDark} 
@@ -13,8 +19,8 @@ export const RankSlider = (props: { votes: number }) => {
                 borderColor={theme.colors.blueDark} >
                 <Progress.Indicator animation="bouncy" backgroundColor={theme.colors.blueLight} />
             </Progress>
-            <Text fontSize={22}>Votos: {props.votes}</Text>
-            <Text fontSize={15}>Necesita {50 - props.votes} más para subir de rango</Text>
+            <Text fontSize={22}>Votos: {renderedVotes}</Text>
+            <Text fontSize={15}>Necesita {50 - renderedVotes} más para subir de rango</Text>
         </>
 
 

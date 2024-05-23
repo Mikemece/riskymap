@@ -1,7 +1,7 @@
 import { Button, Dialog, Unspaced, View } from "tamagui";
 import { ActivityIndicator, StyleSheet } from 'react-native';
-import theme from "./theme";
-import { FormInput } from "./FormInput";
+import theme from "../theme";
+import { FormInput } from "../FormInput";
 import { useContext, useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
 import { createRisk } from "~/backend/emergenciasCRUD";

@@ -6,7 +6,7 @@ import { Button, Dialog } from 'tamagui';
 import { Marker, Circle } from 'react-native-maps';
 import theme from '~/components/theme';
 import { CustomMarker } from '~/components/CustomMarker';
-import { NewRiskButton } from '~/components/NewRiskButton';
+import { NewRiskButton } from '~/components/Buttons/NewRiskButton';
 
 const Home = () => {
 

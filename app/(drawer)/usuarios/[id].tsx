@@ -1,19 +1,45 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Avatar, Button, ScrollView, Text, View } from 'tamagui'
+import { Avatar, Button, ScrollView, Text, View, XStack } from 'tamagui'
 import { UserContext } from '~/components/UserContext';
 import { useLocalSearchParams } from 'expo-router';
 import { getUser } from '~/backend/usuariosCRUD';
 import theme from '~/components/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { RankSlider } from '~/components/RankSlider';
-import { EditInfoButton } from '~/components/EditInfoButton';
+import { EditImageButton } from '~/components/Buttons/EditImageButton';
+import { EditNameButton } from '~/components/Buttons/EditNameButton';
 
 const Usuario = () => {
   const myUser = useContext(UserContext);
   const { id } = useLocalSearchParams<{ id: string }>();
   const editable = myUser?.uid === id;
+
   const [editMode, setEditMode] = useState(false);
   const [activeUser, setActiveUser] = useState<Usuario | null>(null);
+  const [newUsername, setNewUsername] = useState('');
+  const [newImage, setNewImage] = useState('');
+
+  const handleNameValue = (value: string) => {
+    setNewUsername(value);
+  };
+  const handleImageValue = (value: string) => {
+    setNewImage(value);
+  };
+
+  const getRank = (votes: number) => {
+    switch (!!activeUser) {
+      case votes < 50:
+        return 'Novato';
+      case 50 <= votes && votes < 100:
+        return 'Itermedio';
+      case 100 <= votes && votes < 150:
+        return 'Experimentado';
+      case 150 <= votes && votes < 200:
+        return 'Experto';
+      default:
+        return 'Risk-Master';
+    }
+  }
 
   useEffect(() => {
     if (id && !editMode) {
@@ -76,37 +102,33 @@ const Usuario = () => {
 
       <ScrollView>
         <View alignItems='center' marginBottom={30}>
-          <Avatar 
-            circular 
-            borderWidth={2} 
-            size='$13' 
-            top={30} 
+          <Avatar
+            circular
+            borderWidth={2}
+            size='$13'
+            top={30}
             marginBottom={35}
-            >
+          >
             <Avatar.Image
               accessibilityLabel="Avatar"
               src={activeUser?.fotoURL}
             />
           </Avatar>
 
-          {editMode && <EditInfoButton marginTop={5}>
-            Cambiar foto de perfil
-          </EditInfoButton>}
+          {editMode && <XStack>
+            <EditImageButton onValueChange={handleImageValue}/>
+            <EditNameButton onValueChange={handleNameValue}/>
+          </XStack>}
 
           <Text
             fontSize={30}
             color="black"
             marginBottom={10}
           >
-            {activeUser?.nombre} <Text fontSize={22}>({activeUser?.rango})</Text>
+            {activeUser?.nombre} <Text fontSize={22}>({getRank(activeUser?.votos ?? 0)})</Text>
           </Text>
 
           <RankSlider votes={activeUser?.votos || 0} />
-          {editMode && <EditInfoButton marginTop={20} >
-            Cambiar nombre de usuario
-          </EditInfoButton>
-          }
-          
 
           <View
             animation='bouncy'

@@ -28,7 +28,6 @@ export const getUser = async (id: string) => {
       email: usuario.data().email,
       contraseña: usuario.data().contraseña,
       fotoURL: usuario.data().fotoURL,
-      rango: usuario.data().rango,
       registros: usuario.data().registros,
       votos: usuario.data().votos
     }
@@ -47,7 +46,6 @@ export const createUser = async (email: string, password: string, username: stri
       email: email,
       contraseña: password,
       fotoURL: '',
-      rango: 'Novato',
       registros: 0,
       votos: 0
     }
