@@ -2,12 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Avatar, Button, ScrollView, Text, View, XStack } from 'tamagui'
 import { UserContext } from '~/components/UserContext';
 import { useLocalSearchParams } from 'expo-router';
-import { getUser } from '~/backend/usuariosCRUD';
+import { getUser, reloadUser, updateUser } from '~/backend/usuariosCRUD';
 import theme from '~/components/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { RankSlider } from '~/components/RankSlider';
 import { EditImageButton } from '~/components/Buttons/EditImageButton';
 import { EditNameButton } from '~/components/Buttons/EditNameButton';
+import { reload } from 'firebase/auth';
 
 const Usuario = () => {
   const myUser = useContext(UserContext);
@@ -18,6 +19,12 @@ const Usuario = () => {
   const [activeUser, setActiveUser] = useState<Usuario | null>(null);
   const [newUsername, setNewUsername] = useState('');
   const [newImage, setNewImage] = useState('');
+
+  useEffect(() => {
+    if (id && !editMode) {
+      getUser(id).then(user => setActiveUser(user || null));
+    }
+  }, [id, editMode]);
 
   const handleNameValue = (value: string) => {
     setNewUsername(value);
@@ -35,17 +42,28 @@ const Usuario = () => {
       case 100 <= votes && votes < 150:
         return 'Experimentado';
       case 150 <= votes && votes < 200:
-        return 'Experto';
       default:
         return 'Risk-Master';
     }
   }
 
-  useEffect(() => {
-    if (id && !editMode) {
-      getUser(id).then(user => setActiveUser(user || null));
-    }
-  }, [id, editMode]);
+  const onSubmit = () => {
+    if (newUsername === '') setNewUsername(activeUser?.nombre || '');
+    if (newImage === '') setNewImage(activeUser?.fotoURL || '');
+    //Esto lo tengo que modificar
+    if(id !== undefined && newUsername !== '' && newImage !=='') updateUser(id, newUsername, newImage).then(() => {
+      setNewUsername('');
+      setNewImage('');
+      reloadUser(id);
+      setEditMode(false);
+    });
+  }
+
+  const onCancel = () => {
+    setNewImage('');
+    setNewUsername('');
+    setEditMode(false);
+  }
 
   return (
     <>
@@ -78,7 +96,7 @@ const Usuario = () => {
           borderRadius={50}
           backgroundColor={theme.colors.greenPrimary}
           pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
-          onPress={() => setEditMode(false)}
+          onPress={onSubmit}
         >
           <Ionicons name='save' size={25} color={theme.colors.white} />
         </Button>
@@ -93,7 +111,7 @@ const Usuario = () => {
           borderRadius={50}
           backgroundColor={theme.colors.redPrimary}
           pressStyle={{ backgroundColor: theme.colors.redPressed, borderColor: theme.colors.redPressed }}
-          onPress={() => setEditMode(false)}
+          onPress={onCancel}
         >
           <Ionicons name='close' size={25} color={theme.colors.white} />
         </Button>
@@ -111,7 +129,7 @@ const Usuario = () => {
           >
             <Avatar.Image
               accessibilityLabel="Avatar"
-              src={activeUser?.fotoURL}
+              src={activeUser?.fotoURL ? activeUser.fotoURL : 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg'}
             />
           </Avatar>
 
@@ -125,7 +143,7 @@ const Usuario = () => {
             color="black"
             marginBottom={10}
           >
-            {activeUser?.nombre} <Text fontSize={22}>({getRank(activeUser?.votos ?? 0)})</Text>
+            {(editMode && newUsername!== '') ? newUsername : activeUser?.nombre } <Text fontSize={22}>({getRank(activeUser?.votos ?? 0)})</Text>
           </Text>
 
           <RankSlider votes={activeUser?.votos || 0} />

@@ -26,6 +26,7 @@ export default function CustomDrawer(props: any) {
 
     const callLogout = () => {
         logout();
+        alert('Sesión cerrada correctamente');
         router.navigate('/');
     }
 

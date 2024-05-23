@@ -19,11 +19,8 @@ export const RankSlider = (props: { votes: number }) => {
                 borderColor={theme.colors.blueDark} >
                 <Progress.Indicator animation="bouncy" backgroundColor={theme.colors.blueLight} />
             </Progress>
-            <Text fontSize={22}>Votos: {renderedVotes}</Text>
+            <Text fontSize={22}>Votos: {props.votes}</Text>
             <Text fontSize={15}>Necesita {50 - renderedVotes} más para subir de rango</Text>
         </>
-
-
     )
-
 }

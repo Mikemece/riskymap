@@ -1,7 +1,7 @@
 import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import { FIREBASE_DB } from './firebaseConfig'
 import { FIREBASE_AUTH } from './firebaseConfig'
-import { collection, deleteDoc, getDocs, getDoc, setDoc, doc } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, getDoc, setDoc, doc, updateDoc } from 'firebase/firestore';
 
 //<---------------------   CONSTANTES    -------------------------------->
 const DB = FIREBASE_DB;
@@ -60,6 +60,15 @@ export const createUser = async (email: string, password: string, username: stri
   }
 }
 
+// Actualizar un usuario por ID
+export const updateUser = async (id: string, newName: string, newImage: string) => {
+  const usuarioAActualizar = doc(usuarios_collection, id);
+  await updateDoc(usuarioAActualizar, {
+    nombre: newName,
+    fotoURL: newImage
+  });
+}
+
 // Borrar un usuario por ID
 export const deleteUser = async (id: string) => {
   const usuarioABorrar = doc(usuarios_collection, id);
@@ -81,9 +90,17 @@ export const login = async (email: string, password: string) => {
 export const logout = async () => {
   try {
     FIREBASE_AUTH.signOut();
-    alert("Sesión cerrada correctamente");
   } catch (e: any) {
     console.log(e);
     alert('Error al cerrar sesión: ' + e.message);
+  }
+}
+
+//Recarga un usuario
+export const reloadUser = async (id: string) => {
+  const usuario = await getUser(id);
+  if (usuario) {
+    await logout();
+    await login(usuario.email, usuario.contraseña);
   }
 }

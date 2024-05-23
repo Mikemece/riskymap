@@ -9,6 +9,12 @@ export const EditNameButton = (props: any) => {
     const [open, setOpen] = useState(false);
     const [newUsername, setNewUsername] = useState('');
 
+    const sendUsername = () => {
+        props.onValueChange(newUsername);
+        setOpen(false);
+        setNewUsername('');
+    }
+
     return (
         <Dialog open={open}>
             <Dialog.Trigger>
@@ -66,7 +72,7 @@ export const EditNameButton = (props: any) => {
                             fontSize={20}
                             height={50}
                             borderRadius={20}
-                            onPress={ () => props.onValueChange(newUsername)}
+                            onPress={sendUsername}
                         >Cambiar
                         </Button>
                     </Dialog.Close>
