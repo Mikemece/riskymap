@@ -8,7 +8,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { RankSlider } from '~/components/RankSlider';
 import { EditImageButton } from '~/components/Buttons/EditImageButton';
 import { EditNameButton } from '~/components/Buttons/EditNameButton';
-import { reload } from 'firebase/auth';
+import { ActivityIndicator } from 'react-native';
 
 const Usuario = () => {
   const myUser = useContext(UserContext);
@@ -19,10 +19,15 @@ const Usuario = () => {
   const [activeUser, setActiveUser] = useState<Usuario | null>(null);
   const [newUsername, setNewUsername] = useState('');
   const [newImage, setNewImage] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (id && !editMode) {
-      getUser(id).then(user => setActiveUser(user || null));
+      setLoading(true);
+      getUser(id).then(user => {
+        setActiveUser(user || null);
+        setLoading(false);
+      });
     }
   }, [id, editMode]);
 
@@ -48,16 +53,21 @@ const Usuario = () => {
   }
 
   const onSubmit = () => {
+    setLoading(true);
     if (newUsername === '') setNewUsername(activeUser?.nombre || '');
     if (newImage === '') setNewImage(activeUser?.fotoURL || '');
-    //Esto lo tengo que modificar
-    if(id !== undefined && newUsername !== '' && newImage !=='') updateUser(id, newUsername, newImage).then(() => {
+  }
+
+  useEffect(() => {
+    if (id !== undefined && newUsername !== '' && newImage !== '') updateUser(id, newUsername, newImage).then(() => {
       setNewUsername('');
       setNewImage('');
-      reloadUser(id);
-      setEditMode(false);
+      reloadUser(id).then(() => {
+        setEditMode(false);
+        setLoading(false);
+      });
     });
-  }
+  }, [newUsername, newImage]);
 
   const onCancel = () => {
     setNewImage('');
@@ -66,112 +76,115 @@ const Usuario = () => {
   }
 
   return (
-    <>
-      {(editable && !editMode) && <Button
-        position='absolute'
-        zIndex={1}
-        width={65}
-        height={65}
-        alignSelf='center'
-        bottom={55}
-        elevate
-        fontSize={25}
-        borderRadius={50}
-        backgroundColor={theme.colors.greenPrimary}
-        pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
-        onPress={() => setEditMode(true)}
-      >
-        <Ionicons name='brush' size={25} color={theme.colors.white} />
-      </Button>
-      }
-      {editMode && <>
-        <Button
+    <>{loading ?
+        <ActivityIndicator size="large" color={theme.colors.greenPrimary} />
+      : <>
+        {(editable && !editMode) && <Button
           position='absolute'
           zIndex={1}
           width={65}
           height={65}
-          right={25}
+          alignSelf='center'
           bottom={55}
           elevate
+          fontSize={25}
           borderRadius={50}
           backgroundColor={theme.colors.greenPrimary}
           pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
-          onPress={onSubmit}
+          onPress={() => setEditMode(true)}
         >
-          <Ionicons name='save' size={25} color={theme.colors.white} />
+          <Ionicons name='brush' size={25} color={theme.colors.white} />
         </Button>
-        <Button
-          position='absolute'
-          zIndex={1}
-          width={65}
-          height={65}
-          left={25}
-          bottom={55}
-          elevate
-          borderRadius={50}
-          backgroundColor={theme.colors.redPrimary}
-          pressStyle={{ backgroundColor: theme.colors.redPressed, borderColor: theme.colors.redPressed }}
-          onPress={onCancel}
-        >
-          <Ionicons name='close' size={25} color={theme.colors.white} />
-        </Button>
-      </>
-      }
-
-      <ScrollView>
-        <View alignItems='center' marginBottom={30}>
-          <Avatar
-            circular
-            borderWidth={2}
-            size='$13'
-            top={30}
-            marginBottom={35}
+        }
+        {editMode && <>
+          <Button
+            position='absolute'
+            zIndex={1}
+            width={65}
+            height={65}
+            right={25}
+            bottom={55}
+            elevate
+            borderRadius={50}
+            backgroundColor={theme.colors.greenPrimary}
+            pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
+            onPress={onSubmit}
           >
-            <Avatar.Image
-              accessibilityLabel="Avatar"
-              src={activeUser?.fotoURL ? activeUser.fotoURL : 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg'}
-            />
-          </Avatar>
-
-          {editMode && <XStack>
-            <EditImageButton onValueChange={handleImageValue}/>
-            <EditNameButton onValueChange={handleNameValue}/>
-          </XStack>}
-
-          <Text
-            fontSize={30}
-            color="black"
-            marginBottom={10}
+            <Ionicons name='save' size={25} color={theme.colors.white} />
+          </Button>
+          <Button
+            position='absolute'
+            zIndex={1}
+            width={65}
+            height={65}
+            left={25}
+            bottom={55}
+            elevate
+            borderRadius={50}
+            backgroundColor={theme.colors.redPrimary}
+            pressStyle={{ backgroundColor: theme.colors.redPressed, borderColor: theme.colors.redPressed }}
+            onPress={onCancel}
           >
-            {(editMode && newUsername!== '') ? newUsername : activeUser?.nombre } <Text fontSize={22}>({getRank(activeUser?.votos ?? 0)})</Text>
-          </Text>
+            <Ionicons name='close' size={25} color={theme.colors.white} />
+          </Button>
+        </>
+        }
 
-          <RankSlider votes={activeUser?.votos || 0} />
+        <ScrollView>
+          <View alignItems='center' marginBottom={30}>
+            <Avatar
+              circular
+              borderWidth={2}
+              size='$13'
+              top={30}
+              marginBottom={35}
+            >
+              <Avatar.Image
+                accessibilityLabel="Avatar"
+                src={activeUser?.fotoURL ? activeUser.fotoURL : 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg'}
+              />
+            </Avatar>
 
-          <View
-            animation='bouncy'
-            pressStyle={{ scale: 1.2 }}
-            padding={15}
-            marginTop={30}
-            borderColor={theme.colors.greenPrimary}
-            borderWidth={2}
-            borderRadius={20}
-            backgroundColor={theme.colors.greenLight}
-          >
-            <Text fontSize={25} >Riesgos registrados</Text>
-            <Text fontSize={40} textAlign='center' >{activeUser?.registros}</Text>
+            {editMode && <XStack>
+              <EditImageButton onValueChange={handleImageValue} />
+              <EditNameButton onValueChange={handleNameValue} />
+            </XStack>}
+
+            <Text
+              fontSize={30}
+              color="black"
+              marginBottom={10}
+            >
+              {(editMode && newUsername !== '') ? newUsername : activeUser?.nombre} <Text fontSize={22}>({getRank(activeUser?.votos ?? 0)})</Text>
+            </Text>
+
+            <RankSlider votes={activeUser?.votos || 0} />
+
+            <View
+              animation='bouncy'
+              pressStyle={{ scale: 1.2 }}
+              padding={15}
+              marginTop={30}
+              borderColor={theme.colors.greenPrimary}
+              borderWidth={2}
+              borderRadius={20}
+              backgroundColor={theme.colors.greenLight}
+            >
+              <Text fontSize={25} >Riesgos registrados</Text>
+              <Text fontSize={40} textAlign='center' >{activeUser?.registros}</Text>
+            </View>
           </View>
-        </View>
 
-        {editable && <View paddingLeft={20}>
-          <Text padding={5} fontSize={20} color="black" textDecorationLine="underline">Información personal:</Text>
-          <Text padding={10} fontSize={15} >Correo: {activeUser?.email}</Text>
-          <Text padding={10} fontSize={15} >Contraseña: {activeUser?.contraseña}</Text>
-        </View>}
+          {editable && <View paddingLeft={20}>
+            <Text padding={5} fontSize={20} color="black" textDecorationLine="underline">Información personal:</Text>
+            <Text padding={10} fontSize={15} >Correo: {activeUser?.email}</Text>
+            <Text padding={10} fontSize={15} >Contraseña: {activeUser?.contraseña}</Text>
+          </View>}
 
-        <View id='safeArea' height={130} />
-      </ScrollView>
+          <View id='safeArea' height={130} />
+        </ScrollView>
 
+      </>}
     </>
   )
 }
