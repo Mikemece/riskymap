@@ -1,4 +1,4 @@
-import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import { User, createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword } from 'firebase/auth';
 import { FIREBASE_DB } from './firebaseConfig'
 import { FIREBASE_AUTH } from './firebaseConfig'
 import { collection, deleteDoc, getDocs, getDoc, setDoc, doc, updateDoc } from 'firebase/firestore';
@@ -70,9 +70,19 @@ export const updateUser = async (id: string, newName: string, newImage: string) 
 }
 
 // Borrar un usuario por ID
-export const deleteUser = async (id: string) => {
-  const usuarioABorrar = doc(usuarios_collection, id);
-  await deleteDoc(usuarioABorrar);
+export const eraseUser = async (id: string) => {
+  const usuarioAUTH = FIREBASE_AUTH.currentUser;
+  const usuarioSTORE = doc(usuarios_collection, id);
+  if(usuarioAUTH){
+    deleteUser(usuarioAUTH).then(() => {
+      deleteDoc(usuarioSTORE);
+    }).catch((e: any) => {
+      console.log(e);
+      alert('Error al borrar usuario: ' + e.message);
+    });
+  } else {
+    console.log("No hay usuario autenticado");
+  }
 }
 
 // Iniciar sesión

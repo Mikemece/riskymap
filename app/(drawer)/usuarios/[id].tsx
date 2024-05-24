@@ -11,6 +11,7 @@ import { EditNameButton } from '~/components/Buttons/EditNameButton';
 import { ActivityIndicator } from 'react-native';
 import { Cloudinary } from "@cloudinary/url-gen";
 import { upload } from "cloudinary-react-native";
+import { DeleteUserButton } from '~/components/Buttons/DeleteUserButton';
 
 const Usuario = () => {
   const myUser = useContext(UserContext);
@@ -217,7 +218,7 @@ const Usuario = () => {
             <Text padding={10} fontSize={15} >Correo: {activeUser?.email}</Text>
             <Text padding={10} fontSize={15} >Contraseña: {activeUser?.contraseña}</Text>
           </View>}
-
+            {editable && <DeleteUserButton userID={id || ''}/>}
           <View id='safeArea' height={130} />
         </ScrollView>
 
