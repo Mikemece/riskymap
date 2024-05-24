@@ -9,6 +9,8 @@ import { RankSlider } from '~/components/RankSlider';
 import { EditImageButton } from '~/components/Buttons/EditImageButton';
 import { EditNameButton } from '~/components/Buttons/EditNameButton';
 import { ActivityIndicator } from 'react-native';
+import { Cloudinary } from "@cloudinary/url-gen";
+import { upload } from "cloudinary-react-native";
 
 const Usuario = () => {
   const myUser = useContext(UserContext);
@@ -20,6 +22,7 @@ const Usuario = () => {
   const [newUsername, setNewUsername] = useState('');
   const [newImage, setNewImage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [submit, setSubmit] = useState(false);
 
   useEffect(() => {
     if (id && !editMode) {
@@ -55,19 +58,24 @@ const Usuario = () => {
   const onSubmit = () => {
     setLoading(true);
     if (newUsername === '') setNewUsername(activeUser?.nombre || '');
-    if (newImage === '') setNewImage(activeUser?.fotoURL || '');
+    if (newImage === '') {
+      setNewImage(activeUser?.fotoURL || '')
+    } else {
+      uploadImage(newImage).then(() => setSubmit(true));
+    }
   }
 
   useEffect(() => {
-    if (id !== undefined && newUsername !== '' && newImage !== '') updateUser(id, newUsername, newImage).then(() => {
+    if (id !== undefined && newUsername !== '' && newImage !== '' && submit) updateUser(id, newUsername, newImage).then(() => {
       setNewUsername('');
       setNewImage('');
       reloadUser(id).then(() => {
         setEditMode(false);
         setLoading(false);
+        setSubmit(false);
       });
     });
-  }, [newUsername, newImage]);
+  }, [newUsername, newImage, submit]);
 
   const onCancel = () => {
     setNewImage('');
@@ -75,9 +83,38 @@ const Usuario = () => {
     setEditMode(false);
   }
 
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: process.env.EXPO_PUBLIC_CLOUDINARY_CLOUD_NAME
+    },
+    url: {
+      secure: true
+    }
+  });
+
+  const options = {
+    folder: 'riskymap',
+    unsigned: true,
+    upload_preset: 'riskymap_set'
+  };
+
+  const uploadImage = async (uri: string) => {
+    await upload(cld, {
+      file: uri, options: options, callback: (error: any, response: any) => {
+        if (error) {
+          console.error('Error al subir la imagen:', error);
+          return;
+        } else {
+          setNewImage(response.secure_url);
+        }
+      }
+    })
+  }
+
+
   return (
     <>{loading ?
-        <ActivityIndicator size="large" color={theme.colors.greenPrimary} />
+      <ActivityIndicator size="large" color={theme.colors.greenPrimary} />
       : <>
         {(editable && !editMode) && <Button
           position='absolute'
@@ -141,7 +178,7 @@ const Usuario = () => {
             >
               <Avatar.Image
                 accessibilityLabel="Avatar"
-                src={activeUser?.fotoURL ? activeUser.fotoURL : 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg'}
+                src={newImage !== '' ? newImage : activeUser?.fotoURL ? activeUser.fotoURL : 'https://static.vecteezy.com/system/resources/previews/005/544/718/non_2x/profile-icon-design-free-vector.jpg'}
               />
             </Avatar>
 
