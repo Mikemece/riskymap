@@ -7,8 +7,12 @@ import { Marker, Circle } from 'react-native-maps';
 import theme from '~/components/theme';
 import { CustomMarker } from '~/components/CustomMarker';
 import { NewRiskButton } from '~/components/Buttons/NewRiskButton';
+import { fetchRisksEONET } from '~/backend/EONET-API';
+import { fetchRisksGDACS } from '~/backend/GDACS-API';
 
 const Home = () => {
+
+  const [EONETData, setEONETData] = useState([])
 
   const [region, setRegion] = useState({
     latitude: 37.78825,
@@ -28,14 +32,21 @@ const Home = () => {
     setRegion({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
-      latitudeDelta: 0.3,
-      longitudeDelta: 0.3
+      latitudeDelta: 0.5,
+      longitudeDelta: 0.5
     });
     console.log(location.coords.latitude, location.coords.longitude);
   }
 
   useEffect(() => {
     userLocation();
+    fetchRisksEONET().then(data => {
+      setEONETData(data);
+    });
+    fetchRisksGDACS().then(data => {
+      console.log(data);
+    });
+
   }, []);
 
 
@@ -45,7 +56,9 @@ const Home = () => {
         region={region}
         style={styles.map}
         rotateEnabled={false}>
-        <CustomMarker coords={region} />
+        {EONETData.map((risk: any, index: number) => (
+          <CustomMarker key={index} coords={risk.ubicacion} />
+        ))}
         <Circle
           center={region}
           radius={10000}

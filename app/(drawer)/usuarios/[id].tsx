@@ -61,6 +61,7 @@ const Usuario = () => {
     if (newUsername === '') setNewUsername(activeUser?.nombre || '');
     if (newImage === '') {
       setNewImage(activeUser?.fotoURL || '')
+      setSubmit(true)
     } else {
       uploadImage(newImage).then(() => setSubmit(true));
     }
