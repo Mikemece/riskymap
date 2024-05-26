@@ -23,7 +23,7 @@ const transformData = (data: any) => {
                 latitude: maxMagnitudeGeometry.coordinates[1],
                 longitude: maxMagnitudeGeometry.coordinates[0]
             },
-            userID: 'OFICIAL'
+            userID: 'EONET'
         }
     });
 

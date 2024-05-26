@@ -13,6 +13,7 @@ import { fetchRisksGDACS } from '~/backend/GDACS-API';
 const Home = () => {
 
   const [EONETData, setEONETData] = useState([])
+  const [GDACSData, setGDACSData] = useState([])
 
   const [region, setRegion] = useState({
     latitude: 37.78825,
@@ -44,7 +45,7 @@ const Home = () => {
       setEONETData(data);
     });
     fetchRisksGDACS().then(data => {
-      console.log(data);
+      setGDACSData(data);
     });
 
   }, []);
@@ -57,6 +58,9 @@ const Home = () => {
         style={styles.map}
         rotateEnabled={false}>
         {EONETData.map((risk: any, index: number) => (
+          <CustomMarker key={index} coords={risk.ubicacion} />
+        ))}
+        {GDACSData.map((risk: any, index: number) => (
           <CustomMarker key={index} coords={risk.ubicacion} />
         ))}
         <Circle
