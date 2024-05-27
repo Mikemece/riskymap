@@ -37,5 +37,5 @@ export const gravedad = [
     { label: 'Baja', value: 2 },
     { label: 'Moderada', value: 3 },
     { label: 'Alta', value: 4 },
-    { label: 'Muy alta', value: 5 },
+    { label: 'Extrema', value: 5 },
 ];

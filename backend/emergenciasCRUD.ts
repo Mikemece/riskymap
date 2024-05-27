@@ -17,9 +17,19 @@ export const getRisks = async () => {
     const docRef = doc(riesgos_collection, id);
     const riesgo = await getDoc(docRef);
     if (riesgo.exists()) {
-      console.log("riesgo: ", riesgo.data());
+      const riesgoDevuelto: Riesgo = {
+        titulo: riesgo.data().titulo,
+        categoria: riesgo.data().categoria,
+        gravedad: riesgo.data().gravedad,
+        fecha: riesgo.data().fecha,
+        ubicacion: riesgo.data().ubicacion,
+        userID: riesgo.data().userID,
+        votos: riesgo.data().votos,
+        duracion: riesgo.data().duracion
+      }
+      return riesgoDevuelto;
     } else {
-      console.log("NO EXISTE riesgo: ", id);
+      console.log("NO EXISTE RIESGO: ", id);
     }
   }
   

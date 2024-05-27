@@ -5,8 +5,8 @@ interface Riesgo {
     fecha: Date;
     ubicacion: Coord;
     userID: string;
-    votos: number;
-    duracion: number;
+    votos?: number;
+    duracion?: number;
 }
 
 interface Coord {

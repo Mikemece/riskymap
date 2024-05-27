@@ -5,12 +5,15 @@ import * as Location from 'expo-location';
 import { Button } from 'tamagui';
 import { Circle } from 'react-native-maps';
 import { theme } from '~/components/theme';
-import { CustomMarker } from '~/components/CustomMarker';
+import { CustomMarker } from '~/components/Markers/CustomMarker';
 import { NewRiskButton } from '~/components/Buttons/NewRiskButton';
 import { fetchRisksEONET } from '~/backend/EONET-API';
 import { fetchRisksGDACS } from '~/backend/GDACS-API';
 import { getRisks } from '~/backend/emergenciasCRUD';
 import { DocumentData } from 'firebase/firestore';
+import { FirebaseMarker } from '~/components/Markers/FirebaseMarker';
+import { EONETMarker } from '~/components/Markers/EONETMarker';
+import { GDACSMarker } from '~/components/Markers/GDACSMarker';
 
 const Home = () => {
   const [EONETData, setEONETData] = useState([])
@@ -63,15 +66,19 @@ const Home = () => {
         region={region}
         style={styles.map}
         rotateEnabled={false}>
+          
         {EONETData.map((risk: any, index: number) => (
-          <CustomMarker key={index} coords={risk.ubicacion} />
+          <EONETMarker key={index} risk={risk} />
         ))}
+
         {GDACSData.map((risk: any, index: number) => (
-          <CustomMarker key={index} coords={risk.ubicacion} />
+          <GDACSMarker key={index} risk={risk} />
         ))}
+
         {firebaseData.map((risk: any, index: number) => (
-          <CustomMarker key={index} coords={risk.ubicacion} />
+          <FirebaseMarker key={index} risk={risk} />
         ))}
+
         <Circle
           center={region}
           radius={theme.constants.defaultRadius}
