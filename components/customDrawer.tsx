@@ -4,7 +4,7 @@ import { View, Text, Avatar } from "tamagui";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet } from 'react-native';
-import theme from '~/components/theme';
+import { theme } from '~/components/theme';
 import { getUser, logout } from "~/backend/usuariosCRUD";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";

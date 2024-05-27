@@ -3,7 +3,7 @@ import { Avatar, Button, ScrollView, Text, View, XStack } from 'tamagui'
 import { UserContext } from '~/components/UserContext';
 import { useLocalSearchParams } from 'expo-router';
 import { getUser, reloadUser, updateUser } from '~/backend/usuariosCRUD';
-import theme from '~/components/theme';
+import { theme } from '~/components/theme';
 import { Ionicons } from '@expo/vector-icons';
 import { RankSlider } from '~/components/RankSlider';
 import { EditImageButton } from '~/components/Buttons/EditImageButton';

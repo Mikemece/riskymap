@@ -1,6 +1,6 @@
-import { Button, Dialog, Unspaced, View } from "tamagui";
+import { Button, Dialog, View, XStack } from "tamagui";
 import { ActivityIndicator, StyleSheet } from 'react-native';
-import theme from "../theme";
+import { theme, categoriasFirebase, gravedad } from "../theme";
 import { FormInput } from "../FormInput";
 import { useContext, useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
@@ -11,36 +11,35 @@ import { UserContext } from '~/components/UserContext';
 
 
 export const NewRiskButton = () => {
-    
+
     const user = useContext(UserContext);
 
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [loading, setLoading] = useState(false);
-
-    const categorias = [
-        { label: 'Accidente en carretera', value: 'accidente' },
-        { label: 'Zona de alta sismicidad', value: 'terremoto' },
-        { label: 'Riesgo de inundación', value: 'inundación' },
-        { label: 'Zona volcánica', value: 'volcán' },
-        { label: 'La Palmilla 🔪', value: 'peligroso' },
-    ];
+    const [severity, setSeverity] = useState(-1);
 
     const newRisk = async () => {
         setLoading(true);
-        if (title === '' || category === '') {
+        if (title === '' || category === '' || severity < 1 ) {
             alert('Por favor, rellena todos los campos');
             setLoading(false);
             return;
         }
         let location = await Location.getCurrentPositionAsync({ accuracy: 2 });
         let coords: Coord = { latitude: location.coords.latitude, longitude: location.coords.longitude };
-        createRisk(title, category, coords).then(() => {
-            ;
+        createRisk(title, category, coords, user?.uid ?? '', severity).then(() => {
             setLoading(false);
-            setOpen(false);
+            close();
         });
+    }
+
+    const close = () =>{
+        setOpen(false);
+        setTitle('');
+        setCategory('');
+        setSeverity(-1);
     }
 
     return (
@@ -69,7 +68,7 @@ export const NewRiskButton = () => {
                         style={{ opacity: 0.5 }}
                         enterStyle={{ opacity: 0 }}
                         exitStyle={{ opacity: 0 }}
-                        onPress={() => setOpen(false)}
+                        onPress={close}
                     />
                     <Dialog.Content
                         width={"95%"}
@@ -83,15 +82,15 @@ export const NewRiskButton = () => {
                         backgroundColor={theme.colors.greenLight}
                     >
                         <Dialog.Title textAlign="center" color={theme.colors.black}>Nuevo riesgo</Dialog.Title>
-                            <Button
-                                position="absolute"
-                                top={13}
-                                right={15}
-                                size="$2"
-                                circular
-                                icon={<Ionicons name="close" size={20}></Ionicons>}
-                                onPress={() => setOpen(false)}
-                            />
+                        <Button
+                            position="absolute"
+                            top={13}
+                            right={15}
+                            size="$2"
+                            circular
+                            icon={<Ionicons name="close" size={20}></Ionicons>}
+                            onPress={close}
+                        />
                         <View>
                             <FormInput
                                 size="$5"
@@ -99,17 +98,28 @@ export const NewRiskButton = () => {
                                 value={title}
                                 onChangeText={(text) => setTitle(text)}
                             />
-                            <Dropdown
-                                style={styles.dropdown}
-                                data={categorias}
-                                search
-                                labelField="label"
-                                valueField="value"
-                                placeholder="Categoría..."
-                                placeholderStyle={styles.placeholder}
-                                searchPlaceholder="Buscar..."
-                                value={category}
-                                onChange={item => { setCategory(item.value); }} />
+                            <XStack  justifyContent="center" >
+                                <Dropdown
+                                    style={styles.dropdown}
+                                    data={categoriasFirebase}
+                                    search
+                                    labelField="label"
+                                    valueField="value"
+                                    placeholder="Categoría"
+                                    placeholderStyle={styles.placeholder}
+                                    searchPlaceholder="Buscar..."
+                                    value={category}
+                                    onChange={item => { setCategory(item.value); }} />
+                                <Dropdown
+                                    style={styles.dropdown}
+                                    data={gravedad}
+                                    labelField="label"
+                                    valueField="value"
+                                    placeholder="Gravedad"
+                                    placeholderStyle={styles.placeholder}
+                                    value={category}
+                                    onChange={item => { setSeverity(item.value); }} />
+                            </XStack>
                         </View>
                         <Dialog.Close marginTop={10}>
                             {loading ? <ActivityIndicator size='large' color={theme.colors.greenPrimary} />
@@ -140,13 +150,16 @@ export const NewRiskButton = () => {
 
 const styles = StyleSheet.create({
     dropdown: {
-        margin: 15,
+        width: 150,
+        marginVertical: 15,
+        marginHorizontal: 10,
         height: 52,
         borderColor: theme.colors.black,
         backgroundColor: theme.colors.white,
         borderWidth: 1,
         borderRadius: 10,
         paddingHorizontal: 20,
+        
     },
     placeholder: {
         fontWeight: '500',

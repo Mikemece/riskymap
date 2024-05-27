@@ -1,4 +1,4 @@
-const theme = {
+export const theme = {
     colors: {
         greenPrimary: '#1a8100',
         greenPrimaryPressed: '#1e5f0e',
@@ -16,7 +16,26 @@ const theme = {
         blueLight: '#00c3ff',
         greyPrimary: '#646464',
         greySecondary: '#1c1c1ead'
-    }
-}
+    },
+    constants: {
+        defaultRadius: 100000,
+    },
 
-export default theme;
+}
+export const categoriasFirebase = [
+    { label: 'Accidente en carretera', value: 'accidente' },
+    { label: 'Alta sismicidad', value: 'terremoto' },
+    { label: 'Incendio', value: 'incendio'},
+    { label: 'Riesgo de inundación', value: 'inundación' },
+    { label: 'Sequía', value: 'sequía' },
+    { label: 'Tormenta severa', value: 'tormenta'},
+    { label: 'Zona peligrosa', value: 'peligroso' },
+    { label: 'Zona volcánica', value: 'volcán' },
+];
+export const gravedad = [
+    { label: 'Muy baja', value: 1 },
+    { label: 'Baja', value: 2 },
+    { label: 'Moderada', value: 3 },
+    { label: 'Alta', value: 4 },
+    { label: 'Muy alta', value: 5 },
+];

@@ -1,25 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import MapView, { LatLng } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
-import { Button, Dialog } from 'tamagui';
-import { Marker, Circle } from 'react-native-maps';
-import theme from '~/components/theme';
+import { Button } from 'tamagui';
+import { Circle } from 'react-native-maps';
+import { theme } from '~/components/theme';
 import { CustomMarker } from '~/components/CustomMarker';
 import { NewRiskButton } from '~/components/Buttons/NewRiskButton';
 import { fetchRisksEONET } from '~/backend/EONET-API';
 import { fetchRisksGDACS } from '~/backend/GDACS-API';
+import { getRisks } from '~/backend/emergenciasCRUD';
+import { DocumentData } from 'firebase/firestore';
 
 const Home = () => {
-
   const [EONETData, setEONETData] = useState([])
   const [GDACSData, setGDACSData] = useState([])
+  const [firebaseData, setFirebaseData] = useState<DocumentData[]>([]);
 
   const [region, setRegion] = useState({
     latitude: 37.78825,
     longitude: -122.4324,
-    latitudeDelta: 0.5922,
-    longitudeDelta: 0.0421
+    latitudeDelta: 3,
+    longitudeDelta: 3
   });
 
   const userLocation = async () => {
@@ -33,8 +35,8 @@ const Home = () => {
     setRegion({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
-      latitudeDelta: 0.5,
-      longitudeDelta: 0.5
+      latitudeDelta: 3,
+      longitudeDelta: 3
     });
     console.log(location.coords.latitude, location.coords.longitude);
   }
@@ -47,13 +49,17 @@ const Home = () => {
     fetchRisksGDACS().then(data => {
       setGDACSData(data);
     });
-
+    getRisks().then(data => {
+      setFirebaseData(data);
+    });
   }, []);
 
 
   return (
     <View style={styles.container}>
       <MapView
+        provider='google'
+        showsUserLocation
         region={region}
         style={styles.map}
         rotateEnabled={false}>
@@ -63,9 +69,12 @@ const Home = () => {
         {GDACSData.map((risk: any, index: number) => (
           <CustomMarker key={index} coords={risk.ubicacion} />
         ))}
+        {firebaseData.map((risk: any, index: number) => (
+          <CustomMarker key={index} coords={risk.ubicacion} />
+        ))}
         <Circle
           center={region}
-          radius={10000}
+          radius={theme.constants.defaultRadius}
           fillColor={theme.colors.greenSecondary}
           strokeColor={theme.colors.greenPrimary}
           strokeWidth={2}

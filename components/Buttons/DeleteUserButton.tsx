@@ -1,5 +1,5 @@
 import { Button, Dialog, Text, XStack } from "tamagui"
-import theme from "../theme"
+import { theme } from "../theme"
 import { useState } from "react";
 import { eraseUser } from "~/backend/usuariosCRUD";
 import { router } from "expo-router";

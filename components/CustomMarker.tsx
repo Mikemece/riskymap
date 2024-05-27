@@ -1,6 +1,6 @@
 import { LatLng, Marker } from "react-native-maps";
 import { Button, Dialog, Image } from "tamagui";
-import theme from "./theme";
+import { theme } from "./theme";
 import { useState } from "react";
 
 export const CustomMarker = (props: { coords: LatLng }) => {

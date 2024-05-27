@@ -1,5 +1,5 @@
 import { Button, Dialog, Text } from "tamagui"
-import theme from "../theme"
+import { theme } from "../theme"
 import { useState } from "react";
 import { FormInput } from "../FormInput";
 import { Ionicons } from "@expo/vector-icons";

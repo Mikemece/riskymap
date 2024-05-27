@@ -1,5 +1,5 @@
 import { Button, Text } from "tamagui"
-import theme from "../theme"
+import { theme } from "../theme"
 import * as ImagePicker from 'expo-image-picker';
 import { useEffect } from "react";
 

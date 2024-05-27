@@ -1,4 +1,3 @@
-import { LatLng } from 'react-native-maps';
 import { FIREBASE_DB } from './firebaseConfig'
 import { collection, deleteDoc, getDocs, getDoc, setDoc, doc, addDoc } from 'firebase/firestore';
 
@@ -10,9 +9,7 @@ const riesgos_collection = collection(DB, 'riesgos');
 // Mostrar todos los riesgos
 export const getRisks = async () => {
     const riesgos = await getDocs(riesgos_collection);
-    riesgos.forEach((doc) => {
-      console.log(doc.id, ' => ', doc.data());
-    });
+    return riesgos.docs.map(doc => doc.data());
   }
   
   // Mostrar detalles de un riesgo por ID
@@ -27,17 +24,17 @@ export const getRisks = async () => {
   }
   
   // Crear un riesgo
-  export const createRisk = async (titulo: string, categoria: string, ubicacion: Coord) => {
+  export const createRisk = async (titulo: string, categoria: string, ubicacion: Coord, userID: string, gravedad: number) => {
     try {
       const riesgo: Riesgo = {
         titulo: titulo,
         categoria: categoria,
-        gravedad: 1,
+        gravedad: gravedad,
         fecha: new Date(),
         ubicacion: ubicacion,
-        userID: 'WIP',
+        userID: userID,
         votos: 0,
-        duracion: 0
+        duracion: gravedad * gravedad/2
       }
       await addDoc(riesgos_collection, riesgo);
       console.log("Riesgo creado con titulo: ", riesgo.titulo);

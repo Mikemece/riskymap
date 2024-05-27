@@ -1,5 +1,5 @@
 import { Input, SizeTokens, XStack } from "tamagui"
-import theme from "./theme"
+import { theme } from "./theme"
 
 export const FormInput = (props: { size: SizeTokens, placeholder: string, value: string, onChangeText: (value: string) => void, secureTextEntry?: boolean }) => {
     return (

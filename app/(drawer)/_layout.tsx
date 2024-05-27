@@ -4,7 +4,7 @@ import { Drawer } from 'expo-router/drawer'
 import { useContext } from 'react';
 import CustomDrawer from '~/components/CustomDrawer';
 import { UserContext } from '~/components/UserContext';
-import theme from '~/components/theme';
+import { theme } from '~/components/theme';
 const DrawerLayout = () => {
 
     const user = useContext(UserContext);

@@ -4,7 +4,7 @@ import { ActivityIndicator, Text, StyleSheet } from 'react-native';
 import { Button } from 'tamagui'
 import { createUser, login } from '~/backend/usuariosCRUD';
 import { FormInput } from '~/components/FormInput';
-import theme from '~/components/theme';
+import { theme }  from '~/components/theme';
 import { Container } from '~/tamagui.config'
 
 const Login = () => {

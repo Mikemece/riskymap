@@ -1,5 +1,5 @@
 import { Progress, Text } from "tamagui"
-import theme from "./theme"
+import { theme } from "./theme"
 
 export const RankSlider = (props: { votes: number }) => {
 
