@@ -29,11 +29,13 @@ export const getUser = async (id: string) => {
       contraseña: usuario.data().contraseña,
       fotoURL: usuario.data().fotoURL,
       registros: usuario.data().registros,
-      votos: usuario.data().votos
+      votos: usuario.data().votos,
+      listaVotados: usuario.data().listaVotados
     }
     return usuarioDevuelto;
   } else {
     console.log("NO EXISTE USUARIO: ", id);
+    return null;
   }
 }
 
@@ -47,7 +49,8 @@ export const createUser = async (email: string, password: string, username: stri
       contraseña: password,
       fotoURL: '',
       registros: 0,
-      votos: 0
+      votos: 0,
+      listaVotados: []
     }
     await setDoc(doc(usuarios_collection, response.user.uid), usuario);
     console.log("Usuario creado con ID: ", response.user.uid);

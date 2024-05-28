@@ -5,4 +5,5 @@ interface Usuario {
     fotoURL: string;
     registros: number;
     votos: number;
+    listaVotados: Array<string>;
 }

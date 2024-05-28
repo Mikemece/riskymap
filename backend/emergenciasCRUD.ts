@@ -1,5 +1,5 @@
 import { FIREBASE_DB } from './firebaseConfig'
-import { collection, deleteDoc, getDocs, getDoc, setDoc, doc, addDoc } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, getDoc, doc, addDoc } from 'firebase/firestore';
 
 //<---------------------   CONSTANTES    -------------------------------->
 const DB = FIREBASE_DB;
@@ -9,7 +9,7 @@ const riesgos_collection = collection(DB, 'riesgos');
 // Mostrar todos los riesgos
 export const getRisks = async () => {
     const riesgos = await getDocs(riesgos_collection);
-    return riesgos.docs.map(doc => doc.data());
+    return riesgos.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   }
   
   // Mostrar detalles de un riesgo por ID

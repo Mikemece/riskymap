@@ -1,16 +1,23 @@
 import { LatLng, Marker } from "react-native-maps";
-import { Button, Dialog, Text, View } from "tamagui";
+import { Button, Dialog, Text, View, XStack } from "tamagui";
 import { theme } from "../theme";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { router } from "expo-router";
+import { getUser } from "~/backend/usuariosCRUD";
+import { UserContext } from "../UserContext";
 
-export const CustomMarker = (props: { coords: LatLng, color: string, titulo: string, categoria: string, fecha: Date, userID: string, votos?: number }) => {
-
+export const CustomMarker = (props: { coords: LatLng, color: string, titulo: string, categoria: string, fecha: Date, userID: string, votos?: number, riskID?: string }) => {
+  const myUser = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const [fecha, setFecha] = useState("");
   const [gravedad, setGravedad] = useState("");
+  const [userRisk, setUserRisk] = useState(false);
+  const [name, setName] = useState("");
+  const [userVotes, setUserVotes] = useState(0);
+  const [userListVoted, setUserListVoted] = useState<string[]>([]);
 
   useEffect(() => {
-    setFecha(props.fecha.getDate() + '/' + (props.fecha.getMonth()+1) + '/' + props.fecha.getFullYear());
+    setFecha(props.fecha.getDate() + '/' + (props.fecha.getMonth() + 1) + '/' + props.fecha.getFullYear());
     switch (props.color) {
       case 'navy':
         setGravedad('Desconocida');
@@ -31,7 +38,38 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
         setGravedad('Extrema');
         break;
     }
+    if (props.userID !== "GDACS" && props.userID !== "EONET" && props.userID) {
+      getUser(props.userID).then(user => {
+        if (user) {
+          setUserRisk(true);
+          setName(user.nombre);
+          setUserVotes(user.votos);
+          setUserListVoted(user.listaVotados);
+        } else {
+          setName("Usuario eliminado");
+        }
+      });
+    }
   }, []);
+
+  const isVoted = () => {
+    if(userListVoted){
+      if (props.riskID && userListVoted.includes(props.riskID)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  const navigateToUser = () => {
+    router.push({
+      pathname: 'usuarios/[id]',
+      params: { id: props.userID }
+    });
+    setOpen(false);
+
+  }
 
   return (
     <>
@@ -53,6 +91,7 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
             onPress={() => setOpen(false)}
           />
           <Dialog.Content
+            width={"95%"}
             key="content"
             elevate
             animation='fast'
@@ -62,16 +101,32 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
             borderColor={theme.colors.greenPrimary}
             backgroundColor={theme.colors.greenLight}
           >
-            <Dialog.Title fontSize={25} textAlign="center" color={theme.colors.black}>{props.titulo}</Dialog.Title>
-            <Text>Categoría: {props.categoria}</Text>
-            <Text>Gravedad: {gravedad}</Text>
-            <Text>En riesgo desde: {fecha}</Text>
-            {props.votos!== undefined && <View>
-              <Text>Votos: {props.votos}</Text>
-            </View>}
-            <Text>Reportado por: {props.userID}</Text>
+            <Dialog.Title
+              fontSize={23}
+              textAlign="center"
+              color={theme.colors.black}
+              marginBottom={5}
+              lineHeight={30}
+            >{props.titulo}
+            </Dialog.Title>
 
+            <View paddingLeft={10}>
+              <Text fontSize={15}>➤ Categoría:              {props.categoria}</Text>
+              <Text fontSize={15}>➤ Gravedad:               {gravedad}</Text>
+              <Text fontSize={15}>➤ En riesgo desde:   {fecha}</Text>
+              {userRisk ? <XStack>
+                <Text fontSize={15}>➤ Reportado por:</Text>
+                <Text marginLeft={21} color={theme.colors.blueLink} onPress={navigateToUser}>{name}</Text>
+              </XStack> : <Text fontSize={15}>➤ Reportado por:      {props.userID}</Text>}
 
+              {userRisk && <View>
+                <Text fontSize={15}>➤ Votos:                     {props.votos}</Text>
+              </View>}
+              {(userRisk && props.userID !== myUser?.uid && myUser && !isVoted()) && <Button marginTop={10}>
+                Votar
+              </Button>
+              }
+            </View>
             <Dialog.Close >
               <Button
                 marginTop={20}

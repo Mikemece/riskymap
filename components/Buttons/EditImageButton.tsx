@@ -22,7 +22,6 @@ export const EditImageButton = (props: any) => {
             quality: 1,
         });
         if (!result.canceled) {
-            console.log("URI IMAGEN: " + result.assets[0].uri);
             props.onValueChange(result.assets[0].uri);
         }
     };
