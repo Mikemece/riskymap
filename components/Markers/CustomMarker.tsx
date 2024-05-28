@@ -12,6 +12,9 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
   useEffect(() => {
     setFecha(props.fecha.getDate() + '/' + (props.fecha.getMonth()+1) + '/' + props.fecha.getFullYear());
     switch (props.color) {
+      case 'navy':
+        setGravedad('Desconocida');
+        break;
       case 'green':
         setGravedad('Muy baja');
         break;

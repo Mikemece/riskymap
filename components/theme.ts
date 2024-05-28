@@ -23,14 +23,13 @@ export const theme = {
 
 }
 export const categoriasFirebase = [
-    { label: 'Accidente en carretera', value: 'accidente' },
-    { label: 'Alta sismicidad', value: 'terremoto' },
-    { label: 'Incendio', value: 'incendio'},
-    { label: 'Riesgo de inundación', value: 'inundación' },
-    { label: 'Sequía', value: 'sequía' },
-    { label: 'Tormenta severa', value: 'tormenta'},
-    { label: 'Zona peligrosa', value: 'peligroso' },
-    { label: 'Zona volcánica', value: 'volcán' },
+    { label: 'Accidente en carretera', value: 'Accidente carretera' },
+    { label: 'Alta sismicidad', value: 'Terremoto' },
+    { label: 'Incendio', value: 'Incendio'},
+    { label: 'Riesgo de inundación', value: 'Inundación' },
+    { label: 'Sequía', value: 'Sequía' },
+    { label: 'Tormenta severa', value: 'Tormenta severa'},
+    { label: 'Zona volcánica', value: 'Volcán' },
 ];
 export const gravedad = [
     { label: 'Muy baja', value: 1 },
