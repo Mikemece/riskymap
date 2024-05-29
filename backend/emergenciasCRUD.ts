@@ -1,5 +1,5 @@
 import { FIREBASE_DB } from './firebaseConfig'
-import { collection, deleteDoc, getDocs, getDoc, doc, addDoc } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, getDoc, doc, addDoc, updateDoc } from 'firebase/firestore';
 
 //<---------------------   CONSTANTES    -------------------------------->
 const DB = FIREBASE_DB;
@@ -55,6 +55,14 @@ export const getRisks = async () => {
       alert('Error al crear riesgo: ' + e.message);
     }
   }
+
+  // Actualizar un usuario por ID
+export const updateRisk = async (id: string, newVotes: number) => {
+  const riesgoAActualizar = doc(riesgos_collection, id);
+  await updateDoc(riesgoAActualizar, {
+    votos: newVotes
+  });
+}
   
   // Borrar un riesgo por ID
   export const deleteRisk = async (id: string) => {

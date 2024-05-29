@@ -9,7 +9,7 @@ export const FirebaseMarker = (props: { risk: any }) => {
         fecha: new Date(props.risk.fecha.seconds * 1000 + props.risk.fecha.nanoseconds / 1000000),
         ubicacion: {latitude: props.risk.ubicacion.latitude, longitude: props.risk.ubicacion.longitude},
         userID: props.risk.userID,
-        votos: 0,
+        votos: props.risk.votos,
     }
 
     const color = () => {

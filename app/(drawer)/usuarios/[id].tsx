@@ -51,6 +51,7 @@ const Usuario = () => {
       case 100 <= votes && votes < 150:
         return 'Experimentado';
       case 150 <= votes && votes < 200:
+        return 'Experto';
       default:
         return 'Risk-Master';
     }

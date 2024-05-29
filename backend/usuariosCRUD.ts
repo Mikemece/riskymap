@@ -22,7 +22,6 @@ export const getUser = async (id: string) => {
   const docRef = doc(usuarios_collection, id);
   const usuario = await getDoc(docRef);
   if (usuario.exists()) {
-    console.log("USUARIO: ", usuario.data());
     const usuarioDevuelto: Usuario = {
       nombre: usuario.data().nombre,
       email: usuario.data().email,
@@ -69,6 +68,22 @@ export const updateUser = async (id: string, newName: string, newImage: string) 
   await updateDoc(usuarioAActualizar, {
     nombre: newName,
     fotoURL: newImage
+  });
+}
+
+// Actualizar un usuario por ID
+export const updateUserVoted = async (id: string, newVotes: number) => {
+  const usuarioAActualizar = doc(usuarios_collection, id);
+  await updateDoc(usuarioAActualizar, {
+    votos: newVotes
+  });
+}
+
+// Actualizar un usuario por ID
+export const updateTargetVotes = async (id: string, newVotedList: string[]) => {
+  const usuarioAActualizar = doc(usuarios_collection, id);
+  await updateDoc(usuarioAActualizar, {
+    listaVotados: newVotedList
   });
 }
 

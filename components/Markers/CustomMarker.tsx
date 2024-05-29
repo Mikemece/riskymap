@@ -3,63 +3,78 @@ import { Button, Dialog, Text, View, XStack } from "tamagui";
 import { theme } from "../theme";
 import { useContext, useEffect, useState } from "react";
 import { router } from "expo-router";
-import { getUser } from "~/backend/usuariosCRUD";
+import { getUser, updateTargetVotes, updateUserVoted } from "~/backend/usuariosCRUD";
 import { UserContext } from "../UserContext";
+import { updateRisk } from "~/backend/emergenciasCRUD";
 
 export const CustomMarker = (props: { coords: LatLng, color: string, titulo: string, categoria: string, fecha: Date, userID: string, votos?: number, riskID?: string }) => {
   const myUser = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  const [fecha, setFecha] = useState("");
-  const [gravedad, setGravedad] = useState("");
   const [userRisk, setUserRisk] = useState(false);
   const [name, setName] = useState("");
   const [userVotes, setUserVotes] = useState(0);
+  const [riskVotes, setRiskVotes] = useState(props.votos ?? 0);
   const [userListVoted, setUserListVoted] = useState<string[]>([]);
 
+  const fecha = props.fecha.getDate() + '/' + (props.fecha.getMonth() + 1) + '/' + props.fecha.getFullYear();
+  let gravedad;
+  switch (props.color) {
+    case 'navy':
+      gravedad = 'Desconocida';
+      break;
+    case 'green':
+      gravedad = 'Muy baja';
+      break;
+    case 'yellow':
+      gravedad = 'Baja';
+      break;
+    case 'orange':
+      gravedad = 'Moderada';
+      break;
+    case 'red':
+      gravedad = 'Alta';
+      break;
+    default:
+      gravedad = 'Extrema';
+      break;
+  }
+
   useEffect(() => {
-    setFecha(props.fecha.getDate() + '/' + (props.fecha.getMonth() + 1) + '/' + props.fecha.getFullYear());
-    switch (props.color) {
-      case 'navy':
-        setGravedad('Desconocida');
-        break;
-      case 'green':
-        setGravedad('Muy baja');
-        break;
-      case 'yellow':
-        setGravedad('Baja');
-        break;
-      case 'orange':
-        setGravedad('Moderada');
-        break;
-      case 'red':
-        setGravedad('Alta');
-        break;
-      default:
-        setGravedad('Extrema');
-        break;
-    }
     if (props.userID !== "GDACS" && props.userID !== "EONET" && props.userID) {
+      getUser(myUser?.uid || "").then(user => {
+        if (user) {
+          setUserListVoted(user.listaVotados);
+        }
+      });
       getUser(props.userID).then(user => {
         if (user) {
           setUserRisk(true);
           setName(user.nombre);
           setUserVotes(user.votos);
-          setUserListVoted(user.listaVotados);
         } else {
           setName("Usuario eliminado");
         }
       });
     }
-  }, []);
+  }, [userVotes]);
 
   const isVoted = () => {
-    if(userListVoted){
+    if (userListVoted) {
       if (props.riskID && userListVoted.includes(props.riskID)) {
         return true;
       } else {
         return false;
       }
     }
+  }
+
+  const votar = () => {
+    setUserVotes(userVotes + 1);
+    setUserListVoted([...userListVoted, props.riskID || ""]);
+    updateUserVoted(props.userID, userVotes + 1);
+    updateTargetVotes(myUser?.uid || "", [...userListVoted, props.riskID || ""])
+    setRiskVotes(riskVotes + 1);
+    updateRisk(props.riskID ?? "", riskVotes + 1);
   }
 
   const navigateToUser = () => {
@@ -76,6 +91,7 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
       <Dialog open={open} >
         <Dialog.Trigger asChild>
           <Marker
+            zIndex={3}
             coordinate={props.coords}
             pinColor={props.color ? props.color : 'plum'}
             onPress={() => setOpen(true)}
@@ -120,19 +136,37 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
               </XStack> : <Text fontSize={15}>➤ Reportado por:      {props.userID}</Text>}
 
               {userRisk && <View>
-                <Text fontSize={15}>➤ Votos:                     {props.votos}</Text>
+                <Text fontSize={15}>➤ Votos:                     {riskVotes}</Text>
               </View>}
-              {(userRisk && props.userID !== myUser?.uid && myUser && !isVoted()) && <Button marginTop={10}>
-                Votar
-              </Button>
-              }
             </View>
+
+            {(userRisk && props.userID !== myUser?.uid && myUser && !isVoted()) &&
+              <Button
+                marginTop={15}
+                width={100}
+                alignSelf="center"
+                borderRadius={50}
+                onPress={votar}
+              >Votar
+              </Button>
+            }
+            {(userRisk && props.userID !== myUser?.uid && myUser && isVoted()) &&
+              <Button
+                marginTop={15}
+                width={100}
+                alignSelf="center"
+                borderRadius={50}
+                disabled
+                backgroundColor={theme.colors.greySecondary}
+              >¡Votado!
+              </Button>
+            }
+
             <Dialog.Close >
               <Button
                 marginTop={20}
-                textAlign='center'
-                width={200}
                 alignSelf="center"
+                width={200}
                 fontSize={20}
                 height={50}
                 borderRadius={20}
