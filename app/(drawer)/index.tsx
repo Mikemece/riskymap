@@ -20,6 +20,7 @@ const Home = () => {
   const [GDACSData, setGDACSData] = useState([])
   const [firebaseData, setFirebaseData] = useState<DocumentData[]>([]);
   const [update, setUpdate] = useState(false);
+  const radiusInDegrees = theme.constants.defaultRadius / 111120;
 
   const updateMap = () => {
     setUpdate(!update);
@@ -52,15 +53,36 @@ const Home = () => {
   useEffect(() => {
     userLocation();
     fetchRisksEONET().then(data => {
-      setEONETData(data);
+      const filteredEONET = data.filter((risk: any) => { 
+        const riskLocation = { latitude: risk.ubicacion.latitude, longitude: risk.ubicacion.longitude };
+        const distance = euclideanDistance(region, riskLocation);
+        return distance <= radiusInDegrees;
+      });
+      setEONETData(filteredEONET);
     });
     fetchRisksGDACS().then(data => {
-      setGDACSData(data);
+      const filteredGDACS = data.filter((risk: any) => { 
+        const riskLocation = { latitude: risk.ubicacion.latitude, longitude: risk.ubicacion.longitude };
+        const distance = euclideanDistance(region, riskLocation);
+        return distance <= radiusInDegrees;
+      });
+      setGDACSData(filteredGDACS);
     });
     getRisks().then(data => {
-      setFirebaseData(data);
+        const filteredFirebase = data.filter((risk: any) => { 
+        const riskLocation = { latitude: risk.ubicacion.latitude, longitude: risk.ubicacion.longitude };
+        const distance = euclideanDistance(region, riskLocation);
+        return distance <= radiusInDegrees;
+      });
+      setFirebaseData(filteredFirebase);
     });
   }, [update]);
+
+  function euclideanDistance(coords1:any, coords2:any) {
+    const xDiff = coords2.longitude - coords1.longitude;
+    const yDiff = coords2.latitude - coords1.latitude;
+    return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+  }
 
 
   return (
