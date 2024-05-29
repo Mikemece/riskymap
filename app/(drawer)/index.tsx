@@ -19,6 +19,11 @@ const Home = () => {
   const [EONETData, setEONETData] = useState([])
   const [GDACSData, setGDACSData] = useState([])
   const [firebaseData, setFirebaseData] = useState<DocumentData[]>([]);
+  const [update, setUpdate] = useState(false);
+
+  const updateMap = () => {
+    setUpdate(!update);
+  };
 
   const [region, setRegion] = useState({
     latitude: 37.78825,
@@ -55,7 +60,7 @@ const Home = () => {
     getRisks().then(data => {
       setFirebaseData(data);
     });
-  }, []);
+  }, [update]);
 
 
   return (
@@ -90,10 +95,10 @@ const Home = () => {
       <Button
         position='absolute'
         bottom={20}
-        onPress={userLocation}
+        onPress={updateMap}
       >Actualizar
       </Button>
-      <NewRiskButton />
+      <NewRiskButton onUpdate={updateMap} />
     </View>
   );
 };

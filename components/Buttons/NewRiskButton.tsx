@@ -8,34 +8,40 @@ import { createRisk } from "~/backend/emergenciasCRUD";
 import * as Location from 'expo-location';
 import { Ionicons } from "@expo/vector-icons";
 import { UserContext } from '~/components/UserContext';
+import { getUser, updateUserRisks } from "~/backend/usuariosCRUD";
 
 
-export const NewRiskButton = () => {
+export const NewRiskButton = ({ onUpdate }: { onUpdate: () => void }) => {
 
     const user = useContext(UserContext);
-
     const [open, setOpen] = useState(false);
     const [title, setTitle] = useState('');
     const [category, setCategory] = useState('');
     const [loading, setLoading] = useState(false);
     const [severity, setSeverity] = useState(-1);
 
+
     const newRisk = async () => {
         setLoading(true);
-        if (title === '' || category === '' || severity < 1 ) {
+        if (title === '' || category === '' || severity < 1) {
             alert('Por favor, rellena todos los campos');
             setLoading(false);
             return;
         }
         let location = await Location.getCurrentPositionAsync({ accuracy: 2 });
         let coords: Coord = { latitude: location.coords.latitude, longitude: location.coords.longitude };
-        createRisk(title, category, coords, user?.uid ?? '', severity).then(() => {
-            setLoading(false);
-            close();
+        getUser(user?.uid ?? '').then((userData) => {
+            createRisk(title, category, coords, user?.uid ?? '', severity).then(() => {
+                updateUserRisks(user?.uid ?? '', userData?.registros !== undefined ? userData.registros + 1 : 1).then(() => {
+                    setLoading(false);
+                    close();
+                    onUpdate();
+                });
+            });
         });
     }
 
-    const close = () =>{
+    const close = () => {
         setOpen(false);
         setTitle('');
         setCategory('');
@@ -98,7 +104,7 @@ export const NewRiskButton = () => {
                                 value={title}
                                 onChangeText={(text) => setTitle(text)}
                             />
-                            <XStack  justifyContent="center" >
+                            <XStack justifyContent="center" >
                                 <Dropdown
                                     style={styles.dropdown}
                                     data={categoriasFirebase}
@@ -159,7 +165,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         paddingHorizontal: 20,
-        
+
     },
     placeholder: {
         fontWeight: '500',

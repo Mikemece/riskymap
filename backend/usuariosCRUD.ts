@@ -54,7 +54,7 @@ export const createUser = async (email: string, password: string, username: stri
     await setDoc(doc(usuarios_collection, response.user.uid), usuario);
     console.log("Usuario creado con ID: ", response.user.uid);
     alert("¡Bienvenido " + username + " a Riskymap! Podrás completar tu perfil pulsando en tu nombre de usuario en el menú de la izquierda");
-    return (usuario)
+    return usuario;
 
   } catch (e: any) {
     console.log(e);
@@ -62,7 +62,7 @@ export const createUser = async (email: string, password: string, username: stri
   }
 }
 
-// Actualizar un usuario por ID
+// Actualizar un usuario por ID (perfil)
 export const updateUser = async (id: string, newName: string, newImage: string) => {
   const usuarioAActualizar = doc(usuarios_collection, id);
   await updateDoc(usuarioAActualizar, {
@@ -71,7 +71,15 @@ export const updateUser = async (id: string, newName: string, newImage: string) 
   });
 }
 
-// Actualizar un usuario por ID
+// Actualizar un usuario por ID (numero de registros)
+export const updateUserRisks = async (id: string, newRisks: number) => {
+  const usuarioAActualizar = doc(usuarios_collection, id);
+  await updateDoc(usuarioAActualizar, {
+    registros: newRisks,
+  });
+}
+
+// Actualizar un usuario por ID (votos del usuario votado)
 export const updateUserVoted = async (id: string, newVotes: number) => {
   const usuarioAActualizar = doc(usuarios_collection, id);
   await updateDoc(usuarioAActualizar, {
@@ -79,7 +87,7 @@ export const updateUserVoted = async (id: string, newVotes: number) => {
   });
 }
 
-// Actualizar un usuario por ID
+// Actualizar un usuario por ID (lista de votados propia)
 export const updateTargetVotes = async (id: string, newVotedList: string[]) => {
   const usuarioAActualizar = doc(usuarios_collection, id);
   await updateDoc(usuarioAActualizar, {

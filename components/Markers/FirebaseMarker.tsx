@@ -1,7 +1,7 @@
 import { CustomMarker } from "./CustomMarker";
 
 export const FirebaseMarker = (props: { risk: any }) => {
-
+    
     const riesgo: Riesgo = {
         titulo: props.risk.titulo,
         categoria: props.risk.categoria,
@@ -22,8 +22,10 @@ export const FirebaseMarker = (props: { risk: any }) => {
                 return 'orange';
             case 4:
                 return 'red';
-            default:
+            case 5:
                 return 'violet';
+            default:
+                return 'navy';
         }
     };
 
