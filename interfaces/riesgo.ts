@@ -6,7 +6,7 @@ interface Riesgo {
     ubicacion: Coord;
     userID: string;
     votos?: number;
-    duracion?: number;
+    fechaCierre?: Date;
 }
 
 interface Coord {
