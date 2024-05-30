@@ -15,6 +15,7 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
   const [userVotes, setUserVotes] = useState(0);
   const [riskVotes, setRiskVotes] = useState(props.votos ?? 0);
   const [userListVoted, setUserListVoted] = useState<string[]>([]);
+  const [deletedUser, setDeletedUser] = useState(false);
 
   const fecha = props.fecha.getDate() + '/' + (props.fecha.getMonth() + 1) + '/' + props.fecha.getFullYear();
   let gravedad;
@@ -41,17 +42,20 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
 
   useEffect(() => {
     if (props.userID !== "GDACS" && props.userID !== "EONET" && props.userID) {
-      getUser(myUser?.uid || "").then(user => {
-        if (user) {
-          setUserListVoted(user.listaVotados);
-        }
-      });
+      if(myUser){
+        getUser(myUser?.uid || "").then(user => {
+          if (user) {
+            setUserListVoted(user.listaVotados);
+          }
+        });
+      }
       getUser(props.userID).then(user => {
         if (user) {
           setUserRisk(true);
           setName(user.nombre);
           setUserVotes(user.votos);
         } else {
+          setDeletedUser(true);
           setName("Usuario eliminado");
         }
       });
@@ -130,12 +134,14 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
               <Text fontSize={15}>➤ Categoría:              {props.categoria}</Text>
               <Text fontSize={15}>➤ Gravedad:               {gravedad}</Text>
               <Text fontSize={15}>➤ En riesgo desde:   {fecha}</Text>
-              {userRisk ? <XStack>
+              {userRisk && <XStack>
                 <Text fontSize={15}>➤ Reportado por:</Text>
                 <Text marginLeft={21} color={theme.colors.blueLink} onPress={navigateToUser}>{name}</Text>
-              </XStack> : <Text fontSize={15}>➤ Reportado por:      {props.userID}</Text>}
+              </XStack>}
+              {(!userRisk && !deletedUser) && <Text fontSize={15}>➤ Reportado por:      {props.userID}</Text>}
+              {deletedUser && <Text fontSize={15} color={theme.colors.redPressed}>➤ Reportado por:      {name}</Text>}
 
-              {userRisk && <View>
+              {(userRisk || deletedUser) && <View>
                 <Text fontSize={15}>➤ Votos:                     {riskVotes}</Text>
               </View>}
             </View>

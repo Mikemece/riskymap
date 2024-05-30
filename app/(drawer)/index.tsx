@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -13,8 +13,10 @@ import { DocumentData } from 'firebase/firestore';
 import { FirebaseMarker } from '~/components/Markers/FirebaseMarker';
 import { EONETMarker } from '~/components/Markers/EONETMarker';
 import { GDACSMarker } from '~/components/Markers/GDACSMarker';
+import { UserContext } from '~/components/UserContext';
 
 const Home = () => {
+  const user = useContext(UserContext)
   const [EONETData, setEONETData] = useState([])
   const [GDACSData, setGDACSData] = useState([])
   const [firebaseData, setFirebaseData] = useState<DocumentData[]>([]);
@@ -77,13 +79,12 @@ const Home = () => {
           const distance = euclideanDistance(region, riskLocation);
           const hoy = new Date();
           const fechaCierre = new Date(risk.fechaCierre.seconds * 1000 + risk.fechaCierre.nanoseconds / 1000000);
-          console.log(hoy, fechaCierre);
           return (distance <= radiusInDegrees) && (hoy < fechaCierre);
         });
         setFirebaseData(filteredFirebase);
       });
     });
-  }, [update]);
+  }, [update, user]);
 
   function euclideanDistance(coords1:any, coords2:any) {
     const xDiff = coords2.longitude - coords1.longitude;
