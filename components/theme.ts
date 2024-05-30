@@ -18,7 +18,7 @@ export const theme = {
         greySecondary: '#1c1c1ead'
     },
     constants: {
-        defaultRadius: 100000,
+        defaultRadius: 200000,
     },
 
 }

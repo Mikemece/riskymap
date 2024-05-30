@@ -9,6 +9,7 @@ export const GDACSMarker = (props: { risk: any }) => {
         fecha: props.risk.fecha,
         ubicacion: {latitude: props.risk.ubicacion.latitude, longitude: props.risk.ubicacion.longitude},
         userID: props.risk.userID,
+        color: props.risk.color
     }
     const categoria = ()    => {        
         switch (riesgo.categoria) {
@@ -28,24 +29,11 @@ export const GDACSMarker = (props: { risk: any }) => {
                 return "Desconocido";
     }
 }
-    const color = () => {
-        switch (true) {
-            case ( 0 <= riesgo.gravedad && riesgo.gravedad <= 1):
-                return 'green';
-            case ( 1 < riesgo.gravedad && riesgo.gravedad <= 1.5):
-                return 'yellow';
-            case ( 1.5 < riesgo.gravedad && riesgo.gravedad <= 2):
-                return 'orange';
-            case ( 2 < riesgo.gravedad && riesgo.gravedad <= 2.5):
-                return 'red';
-            default:
-                return 'violet';
-        }
-    };
+
     return(
         <CustomMarker 
             coords={riesgo.ubicacion} 
-            color={color()} 
+            color={riesgo.color ?? 'navy'} 
             titulo={riesgo.titulo} 
             categoria={categoria()} 
             fecha={riesgo.fecha}  

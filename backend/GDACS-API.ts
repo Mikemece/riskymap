@@ -19,9 +19,24 @@ const transformData = (data: any) => {
                 latitude: parseFloat(event["geo:Point"]["geo:lat"]["_text"]),
                 longitude: parseFloat(event["geo:Point"]["geo:long"]["_text"])
             },
-            userID: 'GDACS'
+            userID: 'GDACS',
+            color: color(event["gdacs:alertscore"]["_text"])
         }
     });
     return transformedData;
-
 }
+
+const color = (gravedad:number) => {
+    switch (true) {
+        case ( 0 <= gravedad && gravedad <= 1):
+            return 'green';
+        case ( 1 < gravedad && gravedad <= 1.5):
+            return 'yellow';
+        case ( 1.5 < gravedad && gravedad <= 2):
+            return 'orange';
+        case ( 2 < gravedad && gravedad <= 2.5):
+            return 'red';
+        default:
+            return 'violet';
+    }
+};

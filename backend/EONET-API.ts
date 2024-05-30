@@ -23,9 +23,26 @@ const transformData = (data: any) => {
                 latitude: maxMagnitudeGeometry.coordinates[1],
                 longitude: maxMagnitudeGeometry.coordinates[0]
             },
-            userID: 'EONET'
+            userID: 'EONET',
+            color: color(maxMagnitudeGeometry.magnitudeValue)
         }
     });
-
     return transformedData;
 }
+
+const color = (gravedad:number) => {
+    switch (true) {
+        case (gravedad === 0):
+            return 'navy';
+        case (1 <= gravedad && gravedad <= 50):
+            return 'green';
+        case (50 < gravedad && gravedad <= 200):
+            return 'yellow';
+        case (201 < gravedad && gravedad <= 500):
+            return 'orange';
+        case (501 < gravedad && gravedad <= 900):
+            return 'red';
+        default:
+            return 'violet';
+    }
+};

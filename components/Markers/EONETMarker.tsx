@@ -9,8 +9,8 @@ export const EONETMarker = (props: { risk: any}) => {
         fecha: props.risk.fecha,
         ubicacion: { latitude: props.risk.ubicacion.latitude, longitude: props.risk.ubicacion.longitude },
         userID: props.risk.userID,
+        color: props.risk.color
     }
-
 
     const categoria = () => {
         switch (riesgo.categoria) {
@@ -44,27 +44,11 @@ export const EONETMarker = (props: { risk: any}) => {
                 return "Desconocido";
         }
     }
-    const color = () => {
-        switch (true) {
-            case (riesgo.gravedad === 0):
-                return 'navy';
-            case (1 <= riesgo.gravedad && riesgo.gravedad <= 50):
-                return 'green';
-            case (50 < riesgo.gravedad && riesgo.gravedad <= 200):
-                return 'yellow';
-            case (201 < riesgo.gravedad && riesgo.gravedad <= 500):
-                return 'orange';
-            case (501 < riesgo.gravedad && riesgo.gravedad <= 900):
-                return 'red';
-            default:
-                return 'violet';
-        }
-    };
 
     return (
         <CustomMarker
             coords={riesgo.ubicacion}
-            color={color()}
+            color={riesgo.color ?? 'navy'}
             titulo={riesgo.titulo}
             categoria={categoria()}
             fecha={riesgo.fecha}

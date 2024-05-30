@@ -10,29 +10,13 @@ export const FirebaseMarker = (props: { risk: any }) => {
         ubicacion: {latitude: props.risk.ubicacion.latitude, longitude: props.risk.ubicacion.longitude},
         userID: props.risk.userID,
         votos: props.risk.votos,
+        color: props.risk.color
     }
-
-    const color = () => {
-        switch (riesgo.gravedad) {
-            case 1:
-                return 'green';
-            case 2:
-                return 'yellow';
-            case 3:
-                return 'orange';
-            case 4:
-                return 'red';
-            case 5:
-                return 'violet';
-            default:
-                return 'navy';
-        }
-    };
 
     return(
         <CustomMarker 
             coords={riesgo.ubicacion} 
-            color={color()} 
+            color={riesgo.color ?? ''} 
             titulo={riesgo.titulo} 
             categoria={riesgo.categoria} 
             fecha={riesgo.fecha}  

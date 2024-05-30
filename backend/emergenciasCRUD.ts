@@ -25,7 +25,8 @@ export const getRisk = async (id: string) => {
       ubicacion: riesgo.data().ubicacion,
       userID: riesgo.data().userID,
       votos: riesgo.data().votos,
-      fechaCierre: riesgo.data().fechaCierre
+      fechaCierre: riesgo.data().fechaCierre,
+      color: riesgo.data().color
     }
     return riesgoDevuelto;
   } else {
@@ -38,7 +39,7 @@ export const createRisk = async (titulo: string, categoria: string, ubicacion: C
   try {
     const fechaActual = new Date();
     const fechaCierre = new Date();
-    fechaCierre.setDate(fechaActual.getDate() + Math.round(gravedad * gravedad/2));
+    fechaCierre.setDate(fechaActual.getDate() + Math.round(gravedad * gravedad / 2));
     const riesgo: Riesgo = {
       titulo: titulo,
       categoria: categoria,
@@ -47,7 +48,8 @@ export const createRisk = async (titulo: string, categoria: string, ubicacion: C
       ubicacion: ubicacion,
       userID: userID,
       votos: 0,
-      fechaCierre: fechaCierre
+      fechaCierre: fechaCierre,
+      color: color(gravedad)
     }
     await addDoc(riesgos_collection, riesgo);
     console.log("Riesgo creado con titulo: ", riesgo.titulo);
@@ -56,6 +58,23 @@ export const createRisk = async (titulo: string, categoria: string, ubicacion: C
   } catch (e: any) {
     console.log(e);
     alert('Error al crear riesgo: ' + e.message);
+  }
+}
+
+const color = (gravedad: number) => {
+  switch (gravedad) {
+    case 1:
+      return 'green';
+    case 2:
+      return 'yellow';
+    case 3:
+      return 'orange';
+    case 4:
+      return 'red';
+    case 5:
+      return 'violet';
+    default:
+      return 'navy';
   }
 }
 

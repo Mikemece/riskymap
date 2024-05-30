@@ -7,6 +7,7 @@ interface Riesgo {
     userID: string;
     votos?: number;
     fechaCierre?: Date;
+    color?: string;
 }
 
 interface Coord {
