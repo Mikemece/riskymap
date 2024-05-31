@@ -115,6 +115,7 @@ export const NewRiskButton = ({ onUpdate }: { onUpdate: () => void }) => {
                                     placeholderStyle={styles.placeholder}
                                     searchPlaceholder="Buscar..."
                                     value={category}
+                                    selectedTextStyle={styles.selectedText}
                                     onChange={item => { setCategory(item.value); }} />
                                 <Dropdown
                                     style={styles.dropdown}
@@ -123,7 +124,7 @@ export const NewRiskButton = ({ onUpdate }: { onUpdate: () => void }) => {
                                     valueField="value"
                                     placeholder="Gravedad"
                                     placeholderStyle={styles.placeholder}
-                                    value={category}
+                                    value={gravedad.toString()}
                                     onChange={item => { setSeverity(item.value); }} />
                             </XStack>
                         </View>
@@ -169,5 +170,9 @@ const styles = StyleSheet.create({
     placeholder: {
         fontWeight: '500',
         color: theme.colors.greyPrimary
+    },
+    selectedText: {
+        height: 40,
+        textAlignVertical: 'center'
     }
 });

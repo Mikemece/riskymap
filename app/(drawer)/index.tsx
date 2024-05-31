@@ -46,8 +46,8 @@ const Home = () => {
     setRegion({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,
-      latitudeDelta: 3,
-      longitudeDelta: 3
+      latitudeDelta: 5,
+      longitudeDelta: 5
     });
     console.log(location.coords.latitude, location.coords.longitude);
     return location.coords;

@@ -1,19 +1,11 @@
-import { Dropdown } from "react-native-element-dropdown";
-import { theme } from "./theme"
+import { gravedad, theme } from "./theme"
 import { StyleSheet, View } from "react-native"
-import { Button, Popover } from "tamagui";
-import { Ionicons } from "@expo/vector-icons";
 import { CustomPopover } from "./CustomPopover";
 
-
-
-export const MapFilters = () => {
-    const earthIcon = <Ionicons name="earth" size={20} color={theme.colors.white} />
-    const warnIcon = <Ionicons name="warning" size={20} color={theme.colors.white} />
+export const MapFilters = () => {    
     return (
         <View style={styles.container}>
-            <CustomPopover icon={earthIcon} />
-            <CustomPopover icon={warnIcon}/>
+            <CustomPopover/>
         </View>
     )
 }
@@ -26,7 +18,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         alignSelf: "center",
         width: "71%",
-        height: "9%",
+        height: 60,
         backgroundColor: theme.colors.greenLight,
         top: 10,
         borderRadius: 10,
