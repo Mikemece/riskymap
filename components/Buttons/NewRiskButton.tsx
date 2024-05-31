@@ -165,7 +165,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 10,
         paddingHorizontal: 20,
-
     },
     placeholder: {
         fontWeight: '500',

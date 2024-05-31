@@ -14,6 +14,7 @@ import { FirebaseMarker } from '~/components/Markers/FirebaseMarker';
 import { EONETMarker } from '~/components/Markers/EONETMarker';
 import { GDACSMarker } from '~/components/Markers/GDACSMarker';
 import { UserContext } from '~/components/UserContext';
+import { MapFilters } from '~/components/MapFilters';
 
 const Home = () => {
   const user = useContext(UserContext)
@@ -58,7 +59,7 @@ const Home = () => {
     setFirebaseData([]);
     userLocation().then((region) => {
       fetchRisksEONET().then(data => {
-        const filteredEONET = data.filter((risk: any) => { 
+        const filteredEONET = data.filter((risk: any) => {
           const riskLocation = { latitude: risk.ubicacion.latitude, longitude: risk.ubicacion.longitude };
           const distance = euclideanDistance(region, riskLocation);
           return distance <= radiusInDegrees;
@@ -66,7 +67,7 @@ const Home = () => {
         setEONETData(filteredEONET);
       });
       fetchRisksGDACS().then(data => {
-        const filteredGDACS = data.filter((risk: any) => { 
+        const filteredGDACS = data.filter((risk: any) => {
           const riskLocation = { latitude: risk.ubicacion.latitude, longitude: risk.ubicacion.longitude };
           const distance = euclideanDistance(region, riskLocation);
           return distance <= radiusInDegrees;
@@ -74,7 +75,7 @@ const Home = () => {
         setGDACSData(filteredGDACS);
       });
       getRisks().then(data => {
-          const filteredFirebase = data.filter((risk: any) => { 
+        const filteredFirebase = data.filter((risk: any) => {
           const riskLocation = { latitude: risk.ubicacion.latitude, longitude: risk.ubicacion.longitude };
           const distance = euclideanDistance(region, riskLocation);
           const hoy = new Date();
@@ -86,7 +87,7 @@ const Home = () => {
     });
   }, [update, user]);
 
-  function euclideanDistance(coords1:any, coords2:any) {
+  function euclideanDistance(coords1: any, coords2: any) {
     const xDiff = coords2.longitude - coords1.longitude;
     const yDiff = coords2.latitude - coords1.latitude;
     return Math.sqrt(xDiff * xDiff + yDiff * yDiff);
@@ -100,7 +101,7 @@ const Home = () => {
         region={region}
         style={styles.map}
         rotateEnabled={false}>
-          
+
         {EONETData.map((risk: any, index: number) => (
           <EONETMarker key={index} risk={risk} />
         ))}
@@ -128,6 +129,7 @@ const Home = () => {
       >Actualizar
       </Button>
       <NewRiskButton onUpdate={updateMap} />
+      <MapFilters />
     </View>
   );
 };
