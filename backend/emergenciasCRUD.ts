@@ -1,5 +1,5 @@
 import { FIREBASE_DB } from './firebaseConfig'
-import { collection, deleteDoc, getDocs, getDoc, doc, addDoc, updateDoc } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, getDoc, doc, addDoc, updateDoc, query, where, and } from 'firebase/firestore';
 
 //<---------------------   CONSTANTES    -------------------------------->
 const DB = FIREBASE_DB;
@@ -7,9 +7,35 @@ const riesgos_collection = collection(DB, 'riesgos');
 
 //<---------------------   FUNCIONES FIRESTORE    -------------------------------->
 // Mostrar todos los riesgos
-export const getRisks = async () => {
-  const riesgos = await getDocs(riesgos_collection);
+export const getRisks = async (categoria: string, gravedad: string) => {
+  const gravedadNumber = parseGravedad(gravedad);
+  let q = query(riesgos_collection);
+  if (categoria !== "" && gravedad === "") {
+    q = query(riesgos_collection, where("categoria", "==", categoria));
+  } else if (categoria === "" && gravedad !== "") {
+    q = query(riesgos_collection, where("gravedad", "==", gravedadNumber));
+  } else if (categoria !== "" && gravedad !== "") {
+    q = query(riesgos_collection, and(where("categoria", "==", categoria), where("gravedad", "==", gravedadNumber)));
+  }
+  const riesgos = await getDocs(q);
   return riesgos.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+}
+
+function parseGravedad(gravedad: string) {
+  switch (gravedad) {
+    case "Muy baja":
+      return 1;
+    case "Baja":
+      return 2;
+    case "Media":
+      return 3;
+    case "Alta":
+      return 4;
+    case "Extrema":
+      return 5;
+    default:
+      return -1;
+  }
 }
 
 // Mostrar detalles de un riesgo por ID
@@ -91,3 +117,5 @@ export const deleteRisk = async (id: string) => {
   const riesgoABorrar = doc(riesgos_collection, id);
   await deleteDoc(riesgoABorrar);
 }
+
+

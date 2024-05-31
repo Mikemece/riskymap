@@ -2,27 +2,31 @@ import { Button, XStack, YStack } from "tamagui";
 import { theme } from "./theme";
 import Popover from 'react-native-popover-view';
 import { Dropdown } from "react-native-element-dropdown";
-import { StatusBar, StyleSheet } from "react-native"
-import { useState } from "react";
+import { StyleSheet } from "react-native"
+import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
-export const CustomPopover = () => {
+export const CustomPopover = ({ onFiltersChange }:any) => {
     const [categoria, setCategoria] = useState("");
     const [gravedad, setGravedad] = useState("");
 
+    useEffect(() => {
+        onFiltersChange(categoria, gravedad);
+    }, [categoria, gravedad])
+
     const categoriaFilter = [
-        { label: "Accidente", value: "Accidente en carretera" },
+        { label: "Accidente", value: "Accidente carretera" },
         { label: "Ciclón tropical", value: "Ciclón tropical" },
         { label: "Color del agua", value: "Color del agua" },
         { label: "Deslizamiento de tierra", value: "Deslizamiento de tierra" },
-        { label: "Glaciar", value: "Hielo en mares y lagos" },
+        { label: "Hielo en mares y lagos", value: "Hielo en mares y lagos" },
         { label: "Humano", value: "Causado por el hombre" },
         { label: "Incendio", value: "Incendio" },
         { label: "Incendio forestal", value: "Incendio forestal" },
         { label: "Inundación", value: "Inundación" },
         { label: "Nieve", value: "Nieve" },
         { label: "Polvo y neblina", value: "Polvo y neblina" },
-        { label: "Sequia", value: "Sequia" },
+        { label: "Sequía", value: "Sequia" },
         { label: "Temperaturas extremas", value: "Temperaturas extremas" },
         { label: "Terremoto", value: "Terremoto" },
         { label: "Tormenta severa", value: "Tormenta severa" },
@@ -83,7 +87,7 @@ export const CustomPopover = () => {
                         onChange={item => setGravedad(item.value)} />
                 </XStack>
                 <Button
-                    marginBottom={10}
+                    marginBottom={15}
                     height={40}
                     borderRadius={10}
                     backgroundColor={theme.colors.redPrimary}

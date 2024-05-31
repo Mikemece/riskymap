@@ -16,8 +16,8 @@ const transformData = (data: any) => {
         }
         return {
             titulo: event.title,
-            categoria: event.categories[0].id,
-            gravedad: maxMagnitudeGeometry.magnitudeValue,
+            categoria: categoria(event.categories[0].id),
+            gravedad: gravedad(maxMagnitudeGeometry.magnitudeValue),
             fecha: new Date(maxMagnitudeGeometry.date),
             ubicacion: {
                 latitude: maxMagnitudeGeometry.coordinates[1],
@@ -46,3 +46,53 @@ const color = (gravedad:number) => {
             return 'violet';
     }
 };
+
+const gravedad = (gravedad:number) => {
+    switch (true) {
+        case (gravedad === 0):
+            return 'Desconocida';
+        case (1 <= gravedad && gravedad <= 50):
+            return 'Muy baja';
+        case (50 < gravedad && gravedad <= 200):
+            return 'Baja';
+        case (201 < gravedad && gravedad <= 500):
+            return 'Moderada';
+        case (501 < gravedad && gravedad <= 900):
+            return 'Alta';
+        default:
+            return 'Extrema';
+    }
+}
+
+const categoria = (categoria:string) => {
+    switch (categoria) {
+        case "severeStorms":
+            return "Tormenta severa";
+        case "seaLakeIce":
+            return "Hielo en mares y lagos";
+        case "volcanoes":
+            return "Volcán";
+        case "wildfires":
+            return "Incendio forestal";
+        case "drought":
+            return "Sequía";
+        case "dustHaze":
+            return "Polvo y neblina";
+        case "earthquakes":
+            return "Terremoto";
+        case "floods":
+            return "Inundación";
+        case "landslides":
+            return "Deslizamiento de tierra";
+        case "manmade":
+            return "Causado por el hombre";
+        case "snow":
+            return "Nieve";
+        case "tempExtremes":
+            return "Temperaturas extremas";
+        case "waterColor":
+            return "Color del agua";
+        default:
+            return "Desconocido";
+    }
+}

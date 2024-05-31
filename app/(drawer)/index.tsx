@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
-import { Button } from 'tamagui';
+import { Button, Spinner, YStack } from 'tamagui';
 import { Circle } from 'react-native-maps';
 import { theme } from '~/components/theme';
 import { NewRiskButton } from '~/components/Buttons/NewRiskButton';
@@ -11,10 +11,10 @@ import { fetchRisksGDACS } from '~/backend/GDACS-API';
 import { getRisks } from '~/backend/emergenciasCRUD';
 import { DocumentData } from 'firebase/firestore';
 import { FirebaseMarker } from '~/components/Markers/FirebaseMarker';
-import { EONETMarker } from '~/components/Markers/EONETMarker';
-import { GDACSMarker } from '~/components/Markers/GDACSMarker';
 import { UserContext } from '~/components/UserContext';
 import { MapFilters } from '~/components/MapFilters';
+import { radius } from '@tamagui/themes';
+import { APIMarker } from '~/components/Markers/APIMarker';
 
 const Home = () => {
   const user = useContext(UserContext)
@@ -22,7 +22,13 @@ const Home = () => {
   const [GDACSData, setGDACSData] = useState([])
   const [firebaseData, setFirebaseData] = useState<DocumentData[]>([]);
   const [update, setUpdate] = useState(false);
-  const radiusInDegrees = theme.constants.defaultRadius / 111120;
+  const [loading, setLoading] = useState(false);
+
+  const [newRadius, setNewRadius] = useState<number>(theme.constants.defaultRadius);
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [severityFilter, setSeverityFilter] = useState("");
+
+  const radiusInDegrees = newRadius / 111120;
 
   const updateMap = () => {
     setUpdate(!update);
@@ -41,7 +47,6 @@ const Home = () => {
       alert('Permission to access location was denied');
       return;
     }
-
     let location = await Location.getCurrentPositionAsync({ accuracy: 2 });
     setRegion({
       latitude: location.coords.latitude,
@@ -53,28 +58,53 @@ const Home = () => {
     return location.coords;
   }
 
+  const handleFiltersAndRadiusChange = (categoryFilter: string, severityFilter: string, radius: number, fastRadius: number) => {
+    setCategoryFilter(categoryFilter);
+    setSeverityFilter(severityFilter);
+    setNewRadius(radius);
+    updateMap();
+    console.log(categoryFilter, severityFilter, radius);
+  }
+
   useEffect(() => {
+    setLoading(true);
     setEONETData([]);
     setGDACSData([]);
     setFirebaseData([]);
     userLocation().then((region) => {
       fetchRisksEONET().then(data => {
-        const filteredEONET = data.filter((risk: any) => {
+        let filteredEONET = data.filter((risk: any) => {
           const riskLocation = { latitude: risk.ubicacion.latitude, longitude: risk.ubicacion.longitude };
           const distance = euclideanDistance(region, riskLocation);
           return distance <= radiusInDegrees;
         });
+        if(categoryFilter !== "" && severityFilter === ""){
+          filteredEONET = filteredEONET.filter((risk: any) => risk.categoria === categoryFilter);
+        } else if(categoryFilter === "" && severityFilter !== ""){
+          filteredEONET = filteredEONET.filter((risk: any) => risk.gravedad === severityFilter);
+        } else if(categoryFilter !== "" && severityFilter !== ""){
+          filteredEONET = filteredEONET.filter((risk: any) => risk.categoria === categoryFilter && risk.gravedad === severityFilter);
+        }
         setEONETData(filteredEONET);
       });
+
       fetchRisksGDACS().then(data => {
-        const filteredGDACS = data.filter((risk: any) => {
+        let filteredGDACS = data.filter((risk: any) => {
           const riskLocation = { latitude: risk.ubicacion.latitude, longitude: risk.ubicacion.longitude };
           const distance = euclideanDistance(region, riskLocation);
           return distance <= radiusInDegrees;
         });
+        if(categoryFilter !== "" && severityFilter === ""){
+          filteredGDACS = filteredGDACS.filter((risk: any) => risk.categoria === categoryFilter);
+        } else if(categoryFilter === "" && severityFilter !== ""){
+          filteredGDACS = filteredGDACS.filter((risk: any) => risk.gravedad === severityFilter);
+        } else if(categoryFilter !== "" && severityFilter !== ""){
+          filteredGDACS = filteredGDACS.filter((risk: any) => risk.categoria === categoryFilter && risk.gravedad === severityFilter);
+        }
         setGDACSData(filteredGDACS);
       });
-      getRisks().then(data => {
+
+      getRisks(categoryFilter, severityFilter).then(data => {
         const filteredFirebase = data.filter((risk: any) => {
           const riskLocation = { latitude: risk.ubicacion.latitude, longitude: risk.ubicacion.longitude };
           const distance = euclideanDistance(region, riskLocation);
@@ -83,6 +113,7 @@ const Home = () => {
           return (distance <= radiusInDegrees) && (hoy < fechaCierre);
         });
         setFirebaseData(filteredFirebase);
+        setLoading(false);
       });
     });
   }, [update, user]);
@@ -100,14 +131,16 @@ const Home = () => {
         showsUserLocation
         region={region}
         style={styles.map}
-        rotateEnabled={false}>
+        rotateEnabled={false}
+      //onLongPress={(e) => console.log(e.nativeEvent.coordinate)}
+      >
 
         {EONETData.map((risk: any, index: number) => (
-          <EONETMarker key={index} risk={risk} />
+          <APIMarker key={index} risk={risk} />
         ))}
 
         {GDACSData.map((risk: any, index: number) => (
-          <GDACSMarker key={index} risk={risk} />
+          <APIMarker key={index} risk={risk} />
         ))}
 
         {firebaseData.map((risk: any, index: number) => (
@@ -116,7 +149,7 @@ const Home = () => {
 
         <Circle
           center={region}
-          radius={theme.constants.defaultRadius}
+          radius={newRadius}
           fillColor={theme.colors.greenSecondary}
           strokeColor={theme.colors.greenPrimary}
           strokeWidth={2}
@@ -129,7 +162,8 @@ const Home = () => {
       >Actualizar
       </Button>
       <NewRiskButton onUpdate={updateMap} />
-      <MapFilters />
+      <MapFilters onChange={handleFiltersAndRadiusChange} />
+      {loading && <ActivityIndicator size="large" color={theme.colors.black}  style={styles.load} />}
     </View>
   );
 };
@@ -144,6 +178,16 @@ const styles = StyleSheet.create({
   map: {
     width: '100%',
     height: '100%',
+  },
+  load:{
+    position: 'absolute',
+    top: '45%',
+    alignSelf: 'center',
+    backgroundColor: theme.colors.greenLight,
+    borderRadius: 30,
+    elevation: 10,
+    height: 50,
+    width: 50
   }
 });
 

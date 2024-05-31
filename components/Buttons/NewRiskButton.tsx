@@ -146,7 +146,6 @@ export const NewRiskButton = ({ onUpdate }: { onUpdate: () => void }) => {
                                     </Button>
                                 </>
                             }
-
                         </Dialog.Close>
                     </Dialog.Content>
                 </Dialog.Portal>

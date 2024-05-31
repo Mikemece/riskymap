@@ -2,29 +2,42 @@ import { gravedad, theme } from "./theme"
 import { StyleSheet, View } from "react-native"
 import { CustomPopover } from "./CustomPopover";
 import Slider from '@react-native-community/slider';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { YStack, Text } from "tamagui";
-export const MapFilters = () => {
+export const MapFilters = ({onChange}:any) => {
 
     const [radius, setRadius] = useState(theme.constants.defaultRadius);
+    const [fastRadius, setFastRadius] = useState(theme.constants.defaultRadius);
+    const [categoryFilter, setCategoryFilter] = useState("");
+    const [severityFilter, setSeverityFilter] = useState("");
+
+    const handleFiltersChange = (categoryFilter:string, severityFilter:string) => {
+        setCategoryFilter(categoryFilter);
+        setSeverityFilter(severityFilter);
+    }
+
+    useEffect(() => {
+        onChange(categoryFilter, severityFilter, radius);
+    }, [categoryFilter, severityFilter, radius])
 
     return (
         <View style={styles.container}>
-            <CustomPopover />
+            <CustomPopover onFiltersChange={handleFiltersChange}/>
             <YStack alignItems="center">
                 <Text marginBottom={-10}>Radio</Text>
                 <Slider
                     style={styles.slider}
-                    minimumValue={100000}
-                    maximumValue={400000}
-                    step={1000}
+                    minimumValue={10000}
+                    maximumValue={500000}
+                    step={10000}
                     value={radius}
                     minimumTrackTintColor={theme.colors.greenPrimaryPressed}
                     maximumTrackTintColor={theme.colors.black}
                     thumbTintColor={theme.colors.greenPrimary}
-                    onValueChange={value => setRadius(value)}
+                    onSlidingComplete={(value) => setRadius(value)}
+                    onValueChange={(value) => setFastRadius(value)}
                 />
-                <Text marginTop={-10}>{radius/1000} km</Text>
+                <Text marginTop={-10}>{fastRadius/1000} km</Text>
             </YStack>
         </View>
     )
