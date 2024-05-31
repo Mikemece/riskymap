@@ -1,4 +1,4 @@
-import { Button, XStack } from "tamagui";
+import { Button, XStack, YStack } from "tamagui";
 import { theme } from "./theme";
 import Popover from 'react-native-popover-view';
 import { Dropdown } from "react-native-element-dropdown";
@@ -36,6 +36,11 @@ export const CustomPopover = () => {
         { label: "Extrema", value: "Extrema" }
     ]
 
+    const cleanFilters = () => {
+        setCategoria("");
+        setGravedad("");
+    }
+
     return (
         <Popover
             popoverStyle={styles.popover}
@@ -51,31 +56,43 @@ export const CustomPopover = () => {
                     pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
                 >Filtros</Button>
             )}>
-            <XStack>
-                <Dropdown
-                    keyboardAvoiding={false}
-                    style={styles.dropdown}
-                    data={categoriaFilter}
-                    labelField="label"
-                    valueField="value"
-                    placeholder="Categoría"
-                    placeholderStyle={styles.placeholder}
-                    value={categoria}
-                    //search
-                    //searchPlaceholder="Buscar..."
-                    selectedTextProps={{ numberOfLines: 2 }}
-                    selectedTextStyle={styles.selectedText}
-                    onChange={item => setCategoria(item.value)} />
-                <Dropdown
-                    style={styles.dropdown}
-                    data={gravedadFilter}
-                    labelField="label"
-                    valueField="value"
-                    placeholder="Gravedad"
-                    placeholderStyle={styles.placeholder}
-                    value={gravedad}
-                    onChange={item => setGravedad(item.value)} />
-            </XStack>
+            <YStack alignItems="center">
+                <XStack>
+                    <Dropdown
+                        keyboardAvoiding={false}
+                        style={styles.dropdown}
+                        data={categoriaFilter}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="Categoría"
+                        placeholderStyle={styles.placeholder}
+                        value={categoria}
+                        //search
+                        //searchPlaceholder="Buscar..."
+                        selectedTextProps={{ numberOfLines: 2 }}
+                        selectedTextStyle={styles.selectedText}
+                        onChange={item => setCategoria(item.value)} />
+                    <Dropdown
+                        style={styles.dropdown}
+                        data={gravedadFilter}
+                        labelField="label"
+                        valueField="value"
+                        placeholder="Gravedad"
+                        placeholderStyle={styles.placeholder}
+                        value={gravedad}
+                        onChange={item => setGravedad(item.value)} />
+                </XStack>
+                <Button
+                    marginBottom={10}
+                    height={40}
+                    borderRadius={10}
+                    backgroundColor={theme.colors.redPrimary}
+                    pressStyle={{ backgroundColor: theme.colors.redPressed, borderColor: theme.colors.redPressed }}
+                    onPress={cleanFilters}                
+                >Limpiar filtros
+                </Button>
+            </YStack>
+
         </Popover>
 
     );
