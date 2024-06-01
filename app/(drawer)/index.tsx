@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
-import { Button, Spinner, YStack } from 'tamagui';
+import { Button } from 'tamagui';
 import { Circle } from 'react-native-maps';
 import { theme } from '~/components/theme';
 import { NewRiskButton } from '~/components/Buttons/NewRiskButton';
@@ -13,7 +13,6 @@ import { DocumentData } from 'firebase/firestore';
 import { FirebaseMarker } from '~/components/Markers/FirebaseMarker';
 import { UserContext } from '~/components/UserContext';
 import { MapFilters } from '~/components/MapFilters';
-import { radius } from '@tamagui/themes';
 import { APIMarker } from '~/components/Markers/APIMarker';
 
 const Home = () => {

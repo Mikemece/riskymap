@@ -1,0 +1,94 @@
+{
+    "categorias": [
+        {
+            "nombre": "Accidente en carretera",
+            "descripcion": "Accidente ocurrido en carretera",
+            "icono": "../assets/favicon.png",
+            "recomendaciones": "Mantenga la calma y no se detenga en el lugar del accidente"
+        },
+        {
+            "nombre": "Ciclón tropical",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },
+        {
+            "nombre": "Color del agua",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },
+        {
+            "nombre": "Deslizamiento de tierra",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },
+        {
+            "nombre": "Hielo en mares y lagos",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },        
+        {
+            "nombre": "Causado por el hombre",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },        
+        {
+            "nombre": "Incendio",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },        
+        {
+            "nombre": "Incendio forestal",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },        
+        {
+            "nombre": "Inundación",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },        
+        {
+            "nombre": "Nieve",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },
+        {
+            "nombre": "Sequia",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },  
+        {
+            "nombre": "Temperaturas extremas",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },  
+        {
+            "nombre": "Terremoto",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },  
+        {
+            "nombre": "Tormenta severa",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        },  
+        {
+            "nombre": "Volcán",
+            "descripcion": "",
+            "icono": "",
+            "recomendaciones": ""
+        } 
+    ]
+}

@@ -1,5 +1,4 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useLocalSearchParams } from 'expo-router';
 import { Drawer } from 'expo-router/drawer'
 import { useContext } from 'react';
 import CustomDrawer from '~/components/CustomDrawer';
@@ -8,8 +7,6 @@ import { theme } from '~/components/theme';
 const DrawerLayout = () => {
 
     const user = useContext(UserContext);
-    const { id } = useLocalSearchParams<{id: string}>();
-
     return (
         <Drawer
             drawerContent={CustomDrawer}
@@ -62,6 +59,19 @@ const DrawerLayout = () => {
                         backgroundColor: theme.colors.greenPrimary
                     },
                     drawerItemStyle: user ? { display: 'none' } : {}
+                }} />
+
+            <Drawer.Screen
+                name="(tabs)"
+                options={{
+                    title: 'Recomendaciones',
+                    headerTitleAlign: 'center',
+                    drawerIcon: ({ size, color }) => (
+                        <Ionicons name="documents-outline" size={size} color={color} />
+                    ),
+                    headerStyle: {
+                        backgroundColor: theme.colors.greenPrimary
+                    }
                 }} />
         </Drawer>
     )
