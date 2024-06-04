@@ -126,12 +126,10 @@ const Home = () => {
   return (
     <View style={styles.container}>
       <MapView
-        provider='google'
         showsUserLocation
         region={region}
         style={styles.map}
         rotateEnabled={false}
-      //onLongPress={(e) => console.log(e.nativeEvent.coordinate)}
       >
 
         {EONETData.map((risk: any, index: number) => (

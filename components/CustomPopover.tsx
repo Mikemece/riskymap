@@ -2,7 +2,7 @@ import { Button, XStack, YStack } from "tamagui";
 import { theme } from "./theme";
 import Popover from 'react-native-popover-view';
 import { Dropdown } from "react-native-element-dropdown";
-import { StyleSheet } from "react-native"
+import { Platform, StyleSheet } from "react-native"
 import { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -15,7 +15,7 @@ export const CustomPopover = ({ onFiltersChange }:any) => {
     }, [categoria, gravedad])
 
     const categoriaFilter = [
-        { label: "Accidente", value: "Accidente carretera" },
+        { label: "Accidente", value: "Accidente en carretera" },
         { label: "Ciclón tropical", value: "Ciclón tropical" },
         { label: "Color del agua", value: "Color del agua" },
         { label: "Deslizamiento de tierra", value: "Deslizamiento de tierra" },
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     },
     selectedText: {
         height: 40,
+        paddingTop: Platform.OS === "ios" ? 10 : 0,
         textAlignVertical: 'center'
     }
 });

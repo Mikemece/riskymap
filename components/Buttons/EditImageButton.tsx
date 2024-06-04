@@ -1,20 +1,22 @@
 import { Button, Text } from "tamagui"
 import { theme } from "../theme"
 import * as ImagePicker from 'expo-image-picker';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const EditImageButton = (props: any) => {
 
-    const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
+
+    const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 
     useEffect(() => {
-        if (status?.status === 'undetermined') {
-            requestPermission();
-        }
+        (async () => {
+            const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+            setHasPermission(status === 'granted');
+        })();
     }, []);
 
     const pickImage = async () => {
-        if (status?.granted === false) return console.log("No se han otorgado los permisos necesarios");
+        if (!hasPermission) return console.log("No se han otorgado los permisos necesarios");
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,

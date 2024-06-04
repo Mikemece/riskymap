@@ -23,7 +23,7 @@ export const theme = {
 
 }
 export const categoriasFirebase = [
-    { label: 'Accidente en carretera', value: 'Accidente carretera' },
+    { label: 'Accidente en carretera', value: 'Accidente en carretera' },
     { label: 'Alta sismicidad', value: 'Terremoto' },
     { label: 'Incendio', value: 'Incendio'},
     { label: 'Riesgo de inundación', value: 'Inundación' },

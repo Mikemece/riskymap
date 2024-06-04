@@ -2,92 +2,98 @@
     "categorias": [
         {
             "nombre": "Accidente en carretera",
-            "descripcion": "Accidente ocurrido en carretera",
-            "icono": "../assets/favicon.png",
+            "descripcion": "Relacionado con accidentes ocurridos en carretera",
+            "icono": "https://cdn-icons-png.flaticon.com/512/6903/6903790.png",
             "recomendaciones": "Mantenga la calma y no se detenga en el lugar del accidente"
         },
         {
             "nombre": "Ciclón tropical",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con ciclones que ocurren en tormentas tropicales y huracanes",
+            "icono": "https://cdn-icons-png.flaticon.com/512/3242/3242701.png",
             "recomendaciones": ""
         },
         {
             "nombre": "Color del agua",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con eventos que alteran la apariencia del agua: fitoplancton, marea roja, algas, sedimentos, blanqueo, etc.",
+            "icono": "https://cdn-icons-png.flaticon.com/512/5782/5782336.png",
             "recomendaciones": ""
         },
         {
             "nombre": "Deslizamiento de tierra",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con movimientos de tierra y rocas, incluyendo deslizamientos de tierra, avalanchas y desprendimientos de rocas",
+            "icono": "https://cdn-icons-png.flaticon.com/512/3436/3436062.png",
             "recomendaciones": ""
         },
         {
             "nombre": "Hielo en mares y lagos",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con todo el hielo que reside en océanos y lagos, incluyendo el hielo marino y los icebergs",
+            "icono": "https://cdn-icons-png.flaticon.com/512/5847/5847512.png",
             "recomendaciones": ""
         },        
         {
             "nombre": "Causado por el hombre",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Eventos que han sido inducidos por el hombre y son extremos en su extensión",
+            "icono": "https://cdn-icons-png.flaticon.com/512/5153/5153580.png",
             "recomendaciones": ""
         },        
         {
             "nombre": "Incendio",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con los incendios fuera del ámbito forestal, incluyendo incendios en edificios, vehículos, etc.",
+            "icono": "https://cdn-icons-png.flaticon.com/256/3144/3144861.png",
             "recomendaciones": ""
         },        
         {
             "nombre": "Incendio forestal",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacioando con los incendios forestales, incluyendo incendios en matorrales y pastizales",
+            "icono": "https://cdn-icons-png.flaticon.com/512/1886/1886552.png",
             "recomendaciones": ""
         },        
         {
             "nombre": "Inundación",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con aspectos de inundaciones reales, por ejemplo, inundaciones, agua que se extiende más allá de los límites de ríos y lagos",
+            "icono": "https://cdn-icons-png.flaticon.com/512/3436/3436914.png",
             "recomendaciones": ""
         },        
         {
             "nombre": "Nieve",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con eventos de nieve, particularmente nevadas extremas o anómalas en cuanto a tiempo o extensión/profundidad",
+            "icono": "https://cdn-icons-png.flaticon.com/512/2766/2766082.png",
             "recomendaciones": ""
         },
         {
-            "nombre": "Sequia",
-            "descripcion": "",
-            "icono": "",
+            "nombre": "Polvo y neblina",
+            "descripcion": "Relacionado con tormentas de polvo, contaminación del aire y otros aerosoles no volcánicos",
+            "icono": "https://cdn-icons-png.flaticon.com/512/4383/4383809.png",
+            "recomendaciones": ""
+        },
+        {
+            "nombre": "Sequía",
+            "descripcion": "Ausencia prolongada de precipitación que afecta la agricultura y el ganado, así como la disponibilidad general de alimentos y agua",
+            "icono": "https://cdn-icons-png.flaticon.com/512/4850/4850247.png",
             "recomendaciones": ""
         },  
         {
             "nombre": "Temperaturas extremas",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con temperaturas terrestres anómalas, ya sea de calor o de frío",
+            "icono": "https://cdn-icons-png.flaticon.com/512/5847/5847577.png",
             "recomendaciones": ""
         },  
         {
             "nombre": "Terremoto",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con todo tipo de sacudidas y desplazamientos",
+            "icono": "https://cdn-icons-png.flaticon.com/512/3242/3242693.png",
             "recomendaciones": ""
         },  
         {
             "nombre": "Tormenta severa",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado con el aspecto atmosférico de las tormentas",
+            "icono": "https://cdn-icons-png.flaticon.com/512/6635/6635551.png",
             "recomendaciones": ""
         },  
         {
             "nombre": "Volcán",
-            "descripcion": "",
-            "icono": "",
+            "descripcion": "Relacionado tanto con los efectos físicos de una erupción (roca, ceniza, lava) como con los atmosféricos (plumas de ceniza y gas)",
+            "icono": "https://cdn-icons-png.flaticon.com/512/6011/6011044.png",
             "recomendaciones": ""
         } 
     ]

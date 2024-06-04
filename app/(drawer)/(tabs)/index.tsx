@@ -3,35 +3,43 @@ import { Image, Text, XStack, YStack } from "tamagui";
 import { FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import data from "~/documents/recomendaciones.json"
 import { theme } from "~/components/theme";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "expo-router";
 
 const Recomendaciones = () => {
+  const navigation = useNavigation();
   return (
     <>
       <FlatList
         data={data.categorias}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.categoria}>
+          <TouchableOpacity 
+            style={styles.categoria}
+            >
             <XStack>
-              <YStack>
+              <Image
+                source={{ uri: item.icono }}
+                width={55}
+                height={55} />
+              <YStack marginLeft={15} width={220}>
                 <Text
-                  fontSize={17}
+                  fontSize={18}
                   marginBottom={5}
-                  >{item.nombre}
+                >{item.nombre}
                 </Text>
                 <Text
-                  fontSize={13}
+                  fontSize={14}
                   color={theme.colors.greyPrimary}
-                  >{item.descripcion}
+                >{item.descripcion}
                 </Text>
               </YStack>
-              <Image
-                source={{uri: "~/assets/xxdesqui"}}
-                width={100}
-                height={100}
-              />
+              <Ionicons
+                name="chevron-forward"
+                size={24}
+                color={theme.colors.greyPrimary}
+                style={{ position: "absolute", right: 20, top: 10 }} />
             </XStack>
           </TouchableOpacity>
-
         )}
       />
     </>
