@@ -4,8 +4,6 @@ import * as ImagePicker from 'expo-image-picker';
 import { useEffect, useState } from "react";
 
 export const EditImageButton = (props: any) => {
-
-
     const [hasPermission, setHasPermission] = useState<boolean | null>(null);
 
     useEffect(() => {

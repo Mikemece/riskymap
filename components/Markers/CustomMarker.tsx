@@ -42,7 +42,7 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
 
   useEffect(() => {
     if (props.userID !== "GDACS" && props.userID !== "EONET" && props.userID) {
-      if(myUser){
+      if (myUser) {
         getUser(myUser?.uid || "").then(user => {
           if (user) {
             setUserListVoted(user.listaVotados);
@@ -87,7 +87,14 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
       params: { id: props.userID }
     });
     setOpen(false);
+  }
 
+  const navigateToRecommendation = () => {
+    router.push({
+      pathname: 'detalles/[name]',
+      params: { name: props.categoria.split(' ').join('-') }
+    });
+    setOpen(false);
   }
 
   return (
@@ -145,6 +152,18 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
                 <Text fontSize={15}>➤ Votos:                     {riskVotes}</Text>
               </View>}
             </View>
+
+            <Text
+              textAlign="center"
+              marginTop={10}
+              color={theme.colors.greyPrimary}
+            >Para ver recomendaciones sobre este riesgo pulsa
+              <Text
+                color={theme.colors.blueLink}
+                onPress={navigateToRecommendation}
+              > AQUÍ
+              </Text>
+            </Text>
 
             {(userRisk && props.userID !== myUser?.uid && myUser && !isVoted()) &&
               <Button

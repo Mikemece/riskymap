@@ -1,5 +1,5 @@
 import { Button, Dialog, View, XStack } from "tamagui";
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator, Platform, StyleSheet } from 'react-native';
 import { theme, categoriasFirebase, gravedad } from "../theme";
 import { FormInput } from "../FormInput";
 import { useContext, useState } from "react";
@@ -172,6 +172,7 @@ const styles = StyleSheet.create({
     },
     selectedText: {
         height: 40,
+        paddingTop: Platform.OS === "ios" ? 10 : 0,
         textAlignVertical: 'center'
     }
 });

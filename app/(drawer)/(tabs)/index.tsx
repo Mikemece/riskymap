@@ -4,19 +4,22 @@ import { FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import data from "~/documents/recomendaciones.json"
 import { theme } from "~/components/theme";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "expo-router";
+import { router } from "expo-router";
 
 const Recomendaciones = () => {
-  const navigation = useNavigation();
   return (
     <>
       <FlatList
         data={data.categorias}
         renderItem={({ item }) => (
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.categoria}
-            >
-            <XStack>
+            onPress={() => router.push({
+              pathname: 'detalles/[name]',
+              params: { name: item.nombre.split(' ').join('-') }
+            })}
+          >
+            <XStack alignItems="center">
               <Image
                 source={{ uri: item.icono }}
                 width={55}
@@ -37,7 +40,7 @@ const Recomendaciones = () => {
                 name="chevron-forward"
                 size={24}
                 color={theme.colors.greyPrimary}
-                style={{ position: "absolute", right: 20, top: 10 }} />
+              />
             </XStack>
           </TouchableOpacity>
         )}
