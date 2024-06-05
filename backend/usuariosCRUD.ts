@@ -2,6 +2,7 @@ import { User, createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPas
 import { FIREBASE_DB } from './firebaseConfig'
 import { FIREBASE_AUTH } from './firebaseConfig'
 import { collection, deleteDoc, getDocs, getDoc, setDoc, doc, updateDoc } from 'firebase/firestore';
+import { Alert } from 'react-native';
 
 //<---------------------   CONSTANTES    -------------------------------->
 const DB = FIREBASE_DB;
@@ -53,12 +54,12 @@ export const createUser = async (email: string, password: string, username: stri
     }
     await setDoc(doc(usuarios_collection, response.user.uid), usuario);
     console.log("Usuario creado con ID: ", response.user.uid);
-    alert("¡Bienvenido " + username + " a Riskymap! Podrás completar tu perfil pulsando en tu nombre de usuario en el menú de la izquierda");
+    Alert.alert("¡Bienvenido, " + username + ", a Riskymap!"," Podrás completar tu perfil pulsando en tu nombre de usuario en el menú de la izquierda");
     return usuario;
 
   } catch (e: any) {
     console.log(e);
-    alert('Error al crear usuario: ' + e.message);
+    Alert.alert('ERROR','Error al crear usuario: ' + e.message);
   }
 }
 

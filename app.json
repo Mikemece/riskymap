@@ -24,10 +24,10 @@
       "tsconfigPaths": true
     },
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/riskymap_icon_2.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/riskymap_icon_2.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -44,7 +44,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/riskymap_icon_2.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [

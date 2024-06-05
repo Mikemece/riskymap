@@ -3,12 +3,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View, Text, Avatar } from "tamagui";
 import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { StyleSheet } from 'react-native';
+import { Alert, StyleSheet } from 'react-native';
 import { theme } from '~/components/theme';
 import { getUser, logout } from "~/backend/usuariosCRUD";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 import { router } from "expo-router";
+import { Image } from "tamagui";
 
 
 export default function CustomDrawer(props: any) {
@@ -18,15 +19,15 @@ export default function CustomDrawer(props: any) {
 
     useEffect(() => {
         if (user) {
-            getUser(user.uid).then(user => setMyUser(user || null)); 
-        }else{
+            getUser(user.uid).then(user => setMyUser(user || null));
+        } else {
             setMyUser(null);
         }
     }, [user]);
 
     const callLogout = () => {
         logout();
-        alert('Sesión cerrada correctamente');
+        Alert.alert('¡Hasta pronto!', 'Sesión cerrada correctamente');
         router.navigate('/');
     }
 
@@ -71,12 +72,15 @@ export default function CustomDrawer(props: any) {
                     icon={({ size, color }) => <Ionicons name="exit-outline" size={size} color={color} />}
                 />
             </View>}
-            <View borderTopColor='red'
+            <View
+                borderTopColor='red'
                 borderTopWidth={2}
                 padding={5}
                 paddingBottom={20 + bottom}
+                flexDirection="row"
             >
-                <Text>Riskymap</Text>
+                <Image source={require('~/assets/riskymap_icon_2.png')} width={35} height={35} />
+                <Text marginTop={10}>Riskymap</Text>
             </View>
         </>
 

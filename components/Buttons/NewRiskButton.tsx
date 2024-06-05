@@ -1,5 +1,5 @@
 import { Button, Dialog, View, XStack } from "tamagui";
-import { ActivityIndicator, Platform, StyleSheet } from 'react-native';
+import { ActivityIndicator, Alert, Platform, StyleSheet } from 'react-native';
 import { theme, categoriasFirebase, gravedad } from "../theme";
 import { FormInput } from "../FormInput";
 import { useContext, useState } from "react";
@@ -24,7 +24,7 @@ export const NewRiskButton = ({ onUpdate }: { onUpdate: () => void }) => {
     const newRisk = async () => {
         setLoading(true);
         if (title === '' || category === '' || severity < 1) {
-            alert('Por favor, rellena todos los campos');
+            Alert.alert("Error al crear el riesgo",'Por favor, rellena todos los campos');
             setLoading(false);
             return;
         }
@@ -63,7 +63,7 @@ export const NewRiskButton = ({ onUpdate }: { onUpdate: () => void }) => {
                         borderRadius={50}
                         backgroundColor={theme.colors.greenPrimary}
                         pressStyle={{ backgroundColor: theme.colors.greenPrimaryPressed, borderColor: theme.colors.greenPrimaryPressed }}
-                        onPress={user ? () => setOpen(true) : () => alert('Debes iniciar sesión para poder crear un riesgo')}
+                        onPress={user ? () => setOpen(true) : () => Alert.alert("Función restringida",'Debes iniciar sesión para poder crear un riesgo')}
                     >+
                     </Button>
                 </Dialog.Trigger>

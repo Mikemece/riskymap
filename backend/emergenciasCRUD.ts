@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import { FIREBASE_DB } from './firebaseConfig'
 import { collection, deleteDoc, getDocs, getDoc, doc, addDoc, updateDoc, query, where, and } from 'firebase/firestore';
 
@@ -79,11 +80,11 @@ export const createRisk = async (titulo: string, categoria: string, ubicacion: C
     }
     await addDoc(riesgos_collection, riesgo);
     console.log("Riesgo creado con titulo: ", riesgo.titulo);
-    alert("Riesgo creado correctamente");
+    Alert.alert("¡Riesgo creado!", 'Tu riesgo "' + riesgo.titulo + '" ha sido creado con éxito');
 
   } catch (e: any) {
     console.log(e);
-    alert('Error al crear riesgo: ' + e.message);
+    Alert.alert('ERROR','Error al crear riesgo: ' + e.message);
   }
 }
 

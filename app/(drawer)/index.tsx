@@ -44,7 +44,7 @@ const Home = () => {
   const userLocation = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
-      alert('Permission to access location was denied');
+      alert('El permiso para acceder a la ubicación fue denegado');
       return;
     }
     let location = await Location.getCurrentPositionAsync({ accuracy: 2 });
@@ -70,7 +70,7 @@ const Home = () => {
     const intervalId = setInterval(() => {
       console.log("Updating map");
       updateMap();
-    }, 60000);
+    }, 300000);
     return () => clearInterval(intervalId);
   }, []);
 

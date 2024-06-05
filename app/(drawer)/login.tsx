@@ -1,6 +1,6 @@
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { ActivityIndicator, Text, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { ActivityIndicator, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { Button } from 'tamagui'
 import { createUser, login } from '~/backend/usuariosCRUD';
 import { FormInput } from '~/components/FormInput';
@@ -18,7 +18,7 @@ const Login = () => {
   const startSinging = () => {
     setLoading(true);
     login(email, password).then((user) => {
-      alert(user?.email);
+      Alert.alert("¡Bienvenido de nuevo!", "Has iniciado sesión con el correo: " + user?.email);
       setLoading(false);
       if (user) {
         router.navigate('/');
@@ -31,7 +31,7 @@ const Login = () => {
   const startSingingUp = () => {
     setLoading(true);
     if (password !== password2) {
-      alert('Las contraseñas no coinciden');
+      Alert.alert('ERROR', 'Las contraseñas no coinciden');
       setLoading(false);
       return;
     }
