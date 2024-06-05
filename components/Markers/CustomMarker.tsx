@@ -17,7 +17,7 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
   const [userListVoted, setUserListVoted] = useState<string[]>([]);
   const [deletedUser, setDeletedUser] = useState(false);
 
-  const fecha = props.fecha.getDate() + '/' + (props.fecha.getMonth() + 1) + '/' + props.fecha.getFullYear();
+  const fecha = props.fecha.getDate() + '/' + (props.fecha.getMonth() + 1) + '/' + props.fecha.getFullYear() + ' a las ' + props.fecha.getHours() + ':' + props.fecha.getMinutes();
   let gravedad;
   switch (props.color) {
     case 'navy':
@@ -140,7 +140,7 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
             <View paddingLeft={10}>
               <Text fontSize={15}>➤ Categoría:              {props.categoria}</Text>
               <Text fontSize={15}>➤ Gravedad:               {gravedad}</Text>
-              <Text fontSize={15}>➤ En riesgo desde:   {fecha}</Text>
+              <Text fontSize={15}>➤ Actualizado:          {fecha}</Text>
               {userRisk && <XStack>
                 <Text fontSize={15}>➤ Reportado por:</Text>
                 <Text marginLeft={21} color={theme.colors.blueLink} onPress={navigateToUser}>{name}</Text>

@@ -14,6 +14,7 @@ import { FirebaseMarker } from '~/components/Markers/FirebaseMarker';
 import { UserContext } from '~/components/UserContext';
 import { MapFilters } from '~/components/MapFilters';
 import { APIMarker } from '~/components/Markers/APIMarker';
+import { Ionicons } from '@expo/vector-icons';
 
 const Home = () => {
   const user = useContext(UserContext)
@@ -66,6 +67,14 @@ const Home = () => {
   }
 
   useEffect(() => {
+    const intervalId = setInterval(() => {
+      console.log("Updating map");
+      updateMap();
+    }, 60000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
     setLoading(true);
     setEONETData([]);
     setGDACSData([]);
@@ -77,11 +86,11 @@ const Home = () => {
           const distance = euclideanDistance(region, riskLocation);
           return distance <= radiusInDegrees;
         });
-        if(categoryFilter !== "" && severityFilter === ""){
+        if (categoryFilter !== "" && severityFilter === "") {
           filteredEONET = filteredEONET.filter((risk: any) => risk.categoria === categoryFilter);
-        } else if(categoryFilter === "" && severityFilter !== ""){
+        } else if (categoryFilter === "" && severityFilter !== "") {
           filteredEONET = filteredEONET.filter((risk: any) => risk.gravedad === severityFilter);
-        } else if(categoryFilter !== "" && severityFilter !== ""){
+        } else if (categoryFilter !== "" && severityFilter !== "") {
           filteredEONET = filteredEONET.filter((risk: any) => risk.categoria === categoryFilter && risk.gravedad === severityFilter);
         }
         setEONETData(filteredEONET);
@@ -93,11 +102,11 @@ const Home = () => {
           const distance = euclideanDistance(region, riskLocation);
           return distance <= radiusInDegrees;
         });
-        if(categoryFilter !== "" && severityFilter === ""){
+        if (categoryFilter !== "" && severityFilter === "") {
           filteredGDACS = filteredGDACS.filter((risk: any) => risk.categoria === categoryFilter);
-        } else if(categoryFilter === "" && severityFilter !== ""){
+        } else if (categoryFilter === "" && severityFilter !== "") {
           filteredGDACS = filteredGDACS.filter((risk: any) => risk.gravedad === severityFilter);
-        } else if(categoryFilter !== "" && severityFilter !== ""){
+        } else if (categoryFilter !== "" && severityFilter !== "") {
           filteredGDACS = filteredGDACS.filter((risk: any) => risk.categoria === categoryFilter && risk.gravedad === severityFilter);
         }
         setGDACSData(filteredGDACS);
@@ -153,14 +162,21 @@ const Home = () => {
         />
       </MapView>
       <Button
+        icon={<Ionicons name="refresh" size={24} color={theme.colors.white} />}
         position='absolute'
-        bottom={20}
+        width={75}
+        height={75}
+        left={20}
+        bottom={65}
+        elevate
+        fontSize={25}
+        borderRadius={50}
         onPress={updateMap}
-      >Actualizar
+      >
       </Button>
       <NewRiskButton onUpdate={updateMap} />
       <MapFilters onChange={handleFiltersAndRadiusChange} />
-      {loading && <ActivityIndicator size="large" color={theme.colors.black}  style={styles.load} />}
+      {loading && <ActivityIndicator size="large" color={theme.colors.black} style={styles.load} />}
     </View>
   );
 };
@@ -176,7 +192,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  load:{
+  load: {
     position: 'absolute',
     top: '45%',
     alignSelf: 'center',
