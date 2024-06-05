@@ -6,6 +6,8 @@ import { router } from "expo-router";
 import { getUser, updateTargetVotes, updateUserVoted } from "~/backend/usuariosCRUD";
 import { UserContext } from "../UserContext";
 import { updateRisk } from "~/backend/emergenciasCRUD";
+import { EditRiskButton } from "../Buttons/EditRiskButton";
+import { CloseRiskButton } from "../Buttons/CloseRiskButton";
 
 export const CustomMarker = (props: { coords: LatLng, color: string, titulo: string, categoria: string, fecha: Date, userID: string, votos?: number, riskID?: string }) => {
   const myUser = useContext(UserContext);
@@ -164,6 +166,13 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
               > AQUÍ
               </Text>
             </Text>
+            
+            {(userRisk && props.userID === myUser?.uid ) &&
+            <XStack justifyContent="center" marginTop={15}>
+              <EditRiskButton id={props.riskID ?? ""} titulo={props.titulo} categoria={props.categoria}/>
+              <CloseRiskButton id={props.riskID ?? ""}/>
+            </XStack>
+            }
 
             {(userRisk && props.userID !== myUser?.uid && myUser && !isVoted()) &&
               <Button

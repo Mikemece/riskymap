@@ -21,7 +21,7 @@ export const getRisks = async (categoria: string, gravedad: string) => {
   return riesgos.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 }
 
-function parseGravedad(gravedad: string) {
+export function parseGravedad(gravedad: string) {
   switch (gravedad) {
     case "Muy baja":
       return 1;
@@ -104,7 +104,7 @@ const color = (gravedad: number) => {
   }
 }
 
-// Actualizar un usuario por ID
+// Actualizar un riesgo por ID
 export const updateRisk = async (id: string, newVotes: number) => {
   const riesgoAActualizar = doc(riesgos_collection, id);
   await updateDoc(riesgoAActualizar, {
@@ -112,10 +112,36 @@ export const updateRisk = async (id: string, newVotes: number) => {
   });
 }
 
-// Borrar un riesgo por ID
-export const deleteRisk = async (id: string) => {
-  const riesgoABorrar = doc(riesgos_collection, id);
-  await deleteDoc(riesgoABorrar);
+// Actualizar un riesgo por ID
+export const updateRiskInfo = async (id: string, newTitle: string, newCategory: string, newSeverity: number) => {
+  const riesgoAActualizar = doc(riesgos_collection, id);
+  const fechaActual = new Date();
+  const fechaCierre = new Date();
+  if (newSeverity === -1) {
+    await updateDoc(riesgoAActualizar, {
+      titulo: newTitle,
+      categoria: newCategory,
+      fecha: fechaActual
+    });
+  } else {
+    fechaCierre.setDate(fechaActual.getDate() + Math.round(newSeverity * newSeverity / 2));
+    await updateDoc(riesgoAActualizar, {
+      titulo: newTitle,
+      categoria: newCategory,
+      gravedad: newSeverity,
+      color: color(newSeverity),
+      fecha: fechaActual,
+      fechaCierre: fechaCierre
+    });
+  }
+}
+
+// Cierra un riesgo por ID
+export const closeRisk = async (id: string) => {
+  const riesgoACerrar = doc(riesgos_collection, id);
+  await updateDoc(riesgoACerrar, {
+    fechaCierre: new Date(),
+  });
 }
 
 

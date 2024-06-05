@@ -15,6 +15,11 @@ export const EditNameButton = (props: any) => {
         setNewUsername('');
     }
 
+    const close = () => {
+        setNewUsername('');
+        setOpen(false);
+    }
+
     return (
         <Dialog open={open}>
             <Dialog.Trigger>
@@ -37,7 +42,7 @@ export const EditNameButton = (props: any) => {
                     style={{ opacity: 0.5 }}
                     enterStyle={{ opacity: 0 }}
                     exitStyle={{ opacity: 0 }}
-                    onPress={() => setOpen(false)} />
+                    onPress={close} />
                 <Dialog.Content
                     width={"95%"}
                     key="content"
@@ -55,7 +60,7 @@ export const EditNameButton = (props: any) => {
                         size="$2"
                         circular
                         icon={<Ionicons name="close" size={20}></Ionicons>}
-                        onPress={() => setOpen(false)}
+                        onPress={close}
                     />
                     <FormInput
                         size="$5"

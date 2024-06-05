@@ -220,7 +220,9 @@ const Usuario = () => {
             <Text padding={10} fontSize={15} >Correo: {activeUser?.email}</Text>
             <Text padding={10} fontSize={15} >Contraseña: {activeUser?.contraseña}</Text>
           </View>}
-            {editable && <DeleteUserButton userID={id || ''}/>}
+
+          {editable && <DeleteUserButton userID={id || ''} />}
+          
           <View id='safeArea' height={130} />
         </ScrollView>
 
