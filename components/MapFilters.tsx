@@ -28,7 +28,7 @@ export const MapFilters = ({onChange}:any) => {
                 <Slider
                     style={styles.slider}
                     minimumValue={10000}
-                    maximumValue={500000}
+                    maximumValue={20000000}
                     step={10000}
                     value={radius}
                     minimumTrackTintColor={theme.colors.greenPrimaryPressed}

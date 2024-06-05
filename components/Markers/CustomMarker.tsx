@@ -19,7 +19,7 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
   const [userListVoted, setUserListVoted] = useState<string[]>([]);
   const [deletedUser, setDeletedUser] = useState(false);
 
-  const fecha = props.fecha.getDate() + '/' + (props.fecha.getMonth() + 1) + '/' + props.fecha.getFullYear() + ' a las ' + props.fecha.getHours() + ':' + props.fecha.getMinutes();
+  const fecha = props.fecha.toLocaleDateString() + " a las " + props.fecha.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   let gravedad;
   switch (props.color) {
     case 'navy':
