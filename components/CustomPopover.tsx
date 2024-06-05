@@ -26,7 +26,7 @@ export const CustomPopover = ({ onFiltersChange }:any) => {
         { label: "Inundación", value: "Inundación" },
         { label: "Nieve", value: "Nieve" },
         { label: "Polvo y neblina", value: "Polvo y neblina" },
-        { label: "Sequía", value: "Sequia" },
+        { label: "Sequía", value: "Sequía" },
         { label: "Temperaturas extremas", value: "Temperaturas extremas" },
         { label: "Terremoto", value: "Terremoto" },
         { label: "Tormenta severa", value: "Tormenta severa" },
