@@ -47,6 +47,9 @@ const Login = () => {
     });
   }
 
+  const goToTerms = () => {
+    router.navigate('/condiciones');
+  }
 
   return (
     <KeyboardAvoidingView
@@ -64,6 +67,7 @@ const Login = () => {
           : <>
             {registerMode ? <>
               <Button margin={20} alignSelf='center' minWidth={100} onPress={() => startSingingUp()}>Registrarse</Button>
+              <Text style={styles.texto}>Al registrarte, aceptas nuestros <Text onPress={goToTerms} style={styles.linkText}>Términos y Condiciones de uso</Text></Text>
               <Text>¿Ya tienes una cuenta? Inicia sesión pulsando <Text onPress={() => setRegisterMode(false)} style={styles.linkText}>AQUÍ</Text></Text>
             </>
               : <>
@@ -85,5 +89,8 @@ const styles = StyleSheet.create({
     color: theme.colors.blueLink,
     fontWeight: 'bold',
     fontSize: 16
+  },
+  texto:{
+    marginVertical: 20,
   }
 })
