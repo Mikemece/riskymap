@@ -29,17 +29,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="condiciones"
-        options={{
-          title: 'Términos y condiciones',
-          tabBarIcon: ({ color }) => <Ionicons name="document-text" color={color} size={25} />,
-        }}
-      />
-      <Tabs.Screen
         name="appInfo"
         options={{
           title: 'Aplicación',
           tabBarIcon: ({ color }) => <Ionicons name="information-circle" color={color} size={25} />,
+        }}
+      />
+      <Tabs.Screen
+        name="condiciones"
+        options={{
+          title: 'Términos y condiciones',
+          tabBarIcon: ({ color }) => <Ionicons name="document-text" color={color} size={25} />,
         }}
       />
       <Tabs.Screen

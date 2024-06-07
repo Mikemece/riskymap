@@ -26,12 +26,12 @@ const Recomendaciones = () => {
                 height={55} />
               <YStack marginLeft={15} width={220}>
                 <Text
-                  fontSize={18}
+                  fontSize={19}
                   marginBottom={5}
                 >{item.nombre}
                 </Text>
                 <Text
-                  fontSize={14}
+                  fontSize={15}
                   color={theme.colors.greyPrimary}
                 >{item.descripcion}
                 </Text>
