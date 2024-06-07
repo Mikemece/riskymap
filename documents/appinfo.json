@@ -1,0 +1,27 @@
+{
+    "info": [
+        "- 'Riskymap' es una aplicación donde podrás ver y compartir información sobre los riesgos naturales y antrópicos que afectan a tu comunidad.",
+        "- La página principal muestra un mapa con los riesgos que han sido reportados por los usuarios y por fuentes de datos oficiales externas",
+        "- Las fuentes de datos oficiales externas que se usan actualmente son: EONET (Earth Observatory Natural Event Tracker) y GDACS (Global Disaster Alert and Coordination System)",
+        "- Los riesgos mostrados en el mapa se actualizarán cada 5 minutos, y un usuario también podrá actualizar el mapa manualmente",
+        "- 'Riskymap' permite el registro de usuarios para que puedan reportar riesgos en su comunidad",
+        "- Un usuario registrado puede ver su información de perfil y editarla, además todo usuario puede ver la información no privada de otros usuarios (todo lo que no sea correo y contraseña)",
+        "- Un usuario registrado tambien puede eliminar su cuenta en todo momento",
+        "- Los usuarios registrados tambien cuentan con un número de votos que sirven para determinar el rango del usuario",
+        "- Este rango sirve para determinar la fiabilidad de los reportes de riesgos que haga el usuario registrado, y es la suma de los votos de los riesgos registrados por el usuario",
+        "- Todos los usuarios pueden acceder a detalles sobre los riesgos, que incluyen fecha y hora, titulo, categoría, gravedad y fuente",
+        "- Los riesgos que hayan sido reportados por usuarios registrados también cuentan con un número de votos que sirven para determinar la fiabilidad del reporte",
+        "- Un usuario registrado podrá votar riesgos de otros usuarios, pero no podrá votar sus propios riesgos",
+        "- Un usuario registrado podrá reportar un riesgo, detallando un título, categoría y gravedad", 
+        "- Este riesgo se mostrará en la ubicación actual del usuario que lo registre",
+        "- Los riesgos que se muestren en el mapa se mostrarán con un marcador de color que indica su gravedad",
+        "- Los riesgos reportados por fuentes oficilas se actualizarán cada día",
+        "- Los riesgos reportados por usuarios tienen una fecha de cierre que se calcula con la siguiente fórula: fecha de reporte + (valor de gravedad * valor de gravedad/2) días",
+        "- Un usuario registrado podrá editar y cerrar sus propios riesgos",
+        "- Cerrar un riesgo no significa que se elimine, sino que su fecha de cierre se actualiza y ya no se mostrará en el mapa",
+        "- Todos los usuarios pueden acceder a recomendaciones sobre como actuar en cada categoría de riesgo",
+        "- También, podrán filtrar qué riesgos aparecen en el mapa por categoría y gravedad, además de cambiar su radio de detección",
+        "- Finalmente, los usuarios podrán ver la información general de la aplicación, además de los términos y condiciones de uso"
+
+    ]
+}

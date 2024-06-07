@@ -4,6 +4,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { TamaguiProvider } from 'tamagui'
 import tamaguiConfig from '../tamagui.config'
 import { useEffect } from 'react'
+import { UserProvider } from '~/components/UserContext'
 const RootLayout = () => {
 
   const [loaded] = useFonts({
@@ -20,13 +21,15 @@ const RootLayout = () => {
   if (!loaded) {
     return null;
   }
-  
+
   return (
-    <TamaguiProvider config={tamaguiConfig}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Slot />
-      </GestureHandlerRootView>
-    </TamaguiProvider>
+    <UserProvider>
+      <TamaguiProvider config={tamaguiConfig}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <Slot />
+        </GestureHandlerRootView>
+      </TamaguiProvider>
+    </UserProvider>
   )
 }
 export default RootLayout

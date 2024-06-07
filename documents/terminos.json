@@ -1,0 +1,52 @@
+{
+    "terminos" : [
+        {
+            "titulo" : "1. Aceptación de los Términos",
+            "texto" : "Al descargar, instalar y registrarte en 'Riskymap' , aceptas cumplir y estar sujeto a estos Términos y Condiciones de Uso. Si no aceptas estos Términos, no debes usar la aplicación como usuario registrado"
+        },
+        {
+            "titulo": "2. Registro y Seguridad de la Cuenta",
+            "texto": "Para usar ciertas funciones de la Aplicación, necesitarás registrarte y crear una cuenta. Eres responsable de mantener la confidencialidad de tu información de cuenta y contraseña, y aceptas notificar inmediatamente cualquier uso no autorizado de tu cuenta. Ni Miguel Moya ni la UMA serán responsables por ninguna pérdida o daño que surja de tu incumplimiento de esta obligación de seguridad."
+        },
+        {
+            "titulo": "3. Privacidad",
+            "texto": "La Política de Privacidad describe cómo se recopila, usa y comparte tu información. Al usar la Aplicación, aceptas que se pueda usar dicha información de acuerdo con la Política de Privacidad."
+        },
+        {
+            "titulo": "4. Contenido Generado por el Usuario",
+            "texto": "Puedes tener la oportunidad de enviar contenido a través de la Aplicación. Al enviar contenido, otorgas a 'Riskymap' permiso para almacenar, mostrar, modificar y analizar dicho contenido en relación con la provisión de la Aplicación y con fines educativos "
+        },
+        {
+            "titulo": "5. Propiedad Intelectual",
+            "texto": "Todo el contenido, diseño, textos, y la selección y disposición de los mismos (a excepción de los iconos utlizados, cuyo crédito es otorgado a sus creadores en la pestaña 'Información de la aplicación') son originales de 'Riskymap'."
+        },
+        {
+            "titulo": "6. Uso Prohibido",
+            "texto": "No debes usar la Aplicación de ninguna manera que cause, o pueda causar, que la Aplicación o el acceso a la misma se interrumpa, dañe o deteriore de algún modo. No debes intentar obtener acceso no autorizado a la Aplicación, los servidores en los que está almacenada o cualquier servidor, computadora o base de datos conectada a nuestra Aplicación."
+        },
+        {
+            "titulo": "7. Terminación",
+            "texto": "Miguel Moya y la UMA pueden terminar o suspender tu acceso a la Aplicación en cualquier momento, sin previo aviso o responsabilidad, por cualquier motivo, incluyendo si incumples estos Términos. Aún teniendo tu acceso terminado (incuye el borrado de cuenta), información como imágenes y riesgos registrados se conservarán en la base de datos."
+        },
+        {
+            "titulo": "8. Exención de Garantías",
+            "texto": "Ni Miguel Moya ni la UMA garantizan que la Aplicación sea segura o esté libre de errores, o que la Aplicación funcione sin interrupciones o retrasos. La Aplicación se proporciona 'tal cual' y 'según disponibilidad'."
+        },
+        {
+            "titulo": "9. Limitación de Responsabilidad",
+            "texto": "En ningún caso ni Miguel Moya ni la UMA serán responsables por daños directos, indirectos, incidentales, especiales, consecuentes o punitivos, incluidos, entre otros, pérdida de datos, uso otras pérdidas intangibles, que resulten de (i) tu uso o tu incapacidad para usar la Aplicación; (ii) cualquier acceso no autorizado o uso de nuestros servidores y/o cualquier información personal almacenada en los mismos; y (iii) cualquier otro asunto relacionado con la Aplicación."
+        },
+        {
+            "titulo": "10. Ley aplicable",
+            "texto": "Estos Términos se regirán e interpretarán de acuerdo con las leyes de España, sin referencia a sus conflictos de principios legales."
+        },
+        {
+            "titulo": "11. Cambios en los Términos",
+            "texto": "Miguel Moya y la UMA se reservan el derecho de modificar estos Términos en cualquier momento. El uso continuado de la Aplicación después de dicha modificación constituirá tu aceptación de los nuevos Términos. Te recomendamos revisar estos Términos periódicamente para estar informado sobre cualquier cambio."
+        },
+        {
+            "titulo": "12. Contacto",
+            "texto": "Si tienes alguna pregunta sobre estos Términos, por favor contacta con nosotros en 'mcmiguel@uma.es'"
+        }
+    ]
+}
