@@ -64,7 +64,7 @@ const DrawerLayout = () => {
             <Drawer.Screen
                 name="(tabs)"
                 options={{
-                    title: 'Recomendaciones',
+                    title: 'Recomendaciones e Información',
                     headerTitleAlign: 'center',
                     drawerIcon: ({ size, color }) => (
                         <Ionicons name="documents-outline" size={size} color={color} />
