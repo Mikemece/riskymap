@@ -1,4 +1,4 @@
-import { gravedad, theme } from "./theme"
+import { theme } from "./theme"
 import { Platform, StyleSheet, View } from "react-native"
 import { CustomPopover } from "./CustomPopover";
 import Slider from '@react-native-community/slider';
@@ -28,7 +28,7 @@ export const MapFilters = ({onChange}:any) => {
                 <Slider
                     style={styles.slider}
                     minimumValue={10000}
-                    maximumValue={20000000}
+                    maximumValue={500000}
                     step={10000}
                     value={radius}
                     minimumTrackTintColor={theme.colors.greenPrimaryPressed}
