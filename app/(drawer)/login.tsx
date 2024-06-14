@@ -48,7 +48,7 @@ const Login = () => {
   }
 
   const goToTerms = () => {
-    router.navigate('/condiciones');
+    router.navigate('/tabs/condiciones');
   }
 
   return (

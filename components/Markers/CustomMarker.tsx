@@ -87,15 +87,15 @@ export const CustomMarker = (props: { coords: LatLng, color: string, titulo: str
     router.push({
       pathname: 'usuarios/[id]',
       params: { id: props.userID }
-    });
+    } as never);
     setOpen(false);
   }
 
   const navigateToRecommendation = () => {
     router.push({
-      pathname: 'detalles/[name]',
+      pathname: 'tabs/detalles/[name]',
       params: { name: props.categoria.split(' ').join('-') }
-    });
+    } as never);
     setOpen(false);
   }
 

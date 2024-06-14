@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "riskymap",
-    "slug": "riskymap",
-    "version": "1.0.0",
+    "name": "Riskymap",
+    "slug": "Riskymap",
+    "version": "1.0.1",
     "scheme": "riskymap",
     "web": {
       "bundler": "metro",

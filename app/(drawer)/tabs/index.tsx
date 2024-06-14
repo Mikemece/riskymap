@@ -15,9 +15,9 @@ const Recomendaciones = () => {
           <TouchableOpacity
             style={styles.categoria}
             onPress={() => router.push({
-              pathname: 'detalles/[name]',
+              pathname: 'tabs/detalles/[name]',
               params: { name: item.nombre.split(' ').join('-') }
-            })}
+            } as never)}
           >
             <XStack alignItems="center">
               <Image

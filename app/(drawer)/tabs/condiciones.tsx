@@ -8,7 +8,7 @@ const Condiciones = () => {
     <>
       <Text
         fontSize={25}
-        fontWeight={500}
+        fontWeight="500"
         textAlign="center"
         paddingVertical={15}
       >Términos y Condiciones
@@ -19,7 +19,7 @@ const Condiciones = () => {
           <View>
             <Text
               fontSize={22}
-              fontWeight={500}
+              fontWeight="500"
               paddingHorizontal={30}
               paddingVertical={15}
             >{item.titulo}

@@ -62,7 +62,7 @@ const DrawerLayout = () => {
                 }} />
 
             <Drawer.Screen
-                name="(tabs)"
+                name="tabs"
                 options={{
                     title: 'Recomendaciones e Información',
                     headerTitleAlign: 'center',
