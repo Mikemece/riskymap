@@ -55,7 +55,7 @@
       "package": "com.mikemece.riskymap",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyAOZyCrzw9XPD0lFspMzfaz607poxMm34U"
+          "apiKey": "@env:EXPO_PUBLIC_GOOGLE_MAPS_API_KEY"
         }
       }
     },
