@@ -39,7 +39,7 @@ export default function CustomDrawer(props: any) {
                         router.push({
                             pathname: 'usuarios/[id]',
                             params: { id: user?.uid }
-                        });
+                        } as never);
                     } : () => {
                         router.navigate('/login');
                     }}

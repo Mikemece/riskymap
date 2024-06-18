@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { Button } from 'tamagui';
 import { Circle } from 'react-native-maps';
@@ -139,6 +139,7 @@ const Home = () => {
         region={region}
         style={styles.map}
         rotateEnabled={false}
+        provider={PROVIDER_GOOGLE}
       >
 
         {EONETData.map((risk: any, index: number) => (

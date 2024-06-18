@@ -21,6 +21,7 @@
         "- Cerrar un riesgo no significa que se elimine, sino que su fecha de cierre se actualiza y ya no se mostrará en el mapa",
         "- Todos los usuarios pueden acceder a recomendaciones sobre como actuar en cada categoría de riesgo",
         "- También, podrán filtrar qué riesgos aparecen en el mapa por categoría y gravedad, además de cambiar su radio de detección",
+        "- Los iconos de las categorías son de libre uso, obtenidos de Flaticon, y de los cuales algunos han sido creados por 'Konkapp' y 'Freepik'",
         "- Finalmente, los usuarios podrán ver la información general de la aplicación, además de los términos y condiciones de uso"
 
     ]

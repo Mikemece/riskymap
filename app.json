@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "riskymap",
-    "slug": "riskymap",
-    "version": "1.0.0",
+    "name": "Riskymap",
+    "slug": "Riskymap",
+    "version": "1.0.1",
     "scheme": "riskymap",
     "web": {
       "bundler": "metro",
@@ -49,8 +49,20 @@
       },
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION"
-      ]
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.RECORD_AUDIO"
+      ],
+      "package": "com.mikemece.riskymap",
+      "config": {
+        "googleMaps": {
+          "apiKey": "@env:EXPO_PUBLIC_GOOGLE_MAPS_API_KEY"
+        }
+      }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      }
     }
   }
 }

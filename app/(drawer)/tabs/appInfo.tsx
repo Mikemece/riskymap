@@ -7,7 +7,7 @@ const AppInfo = () => {
     <>
       <Text
         fontSize={25}
-        fontWeight={500}
+        fontWeight="500"
         textAlign="center"
         paddingVertical={15}
       >Información de la aplicación
