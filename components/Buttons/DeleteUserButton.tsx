@@ -1,7 +1,7 @@
 import { Button, Dialog, Text, XStack } from "tamagui"
 import { theme } from "../theme"
 import { useState } from "react";
-import { eraseUser } from "~/backend/usuariosCRUD";
+import { eraseUser } from "~/backend/dao/usuariosCRUD";
 import { router } from "expo-router";
 import { ActivityIndicator } from "react-native";
 export const DeleteUserButton = (props: {userID: string}) => {

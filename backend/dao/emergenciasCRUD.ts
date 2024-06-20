@@ -1,5 +1,5 @@
 import { Alert } from 'react-native';
-import { FIREBASE_DB } from './firebaseConfig'
+import { FIREBASE_DB } from '../config/firebaseConfig'
 import { collection, deleteDoc, getDocs, getDoc, doc, addDoc, updateDoc, query, where, and } from 'firebase/firestore';
 
 //<---------------------   CONSTANTES    -------------------------------->

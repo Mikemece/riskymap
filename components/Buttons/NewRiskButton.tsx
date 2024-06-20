@@ -4,11 +4,11 @@ import { theme, categoriasFirebase, gravedad } from "../theme";
 import { FormInput } from "../FormInput";
 import { useContext, useState } from "react";
 import { Dropdown } from "react-native-element-dropdown";
-import { createRisk } from "~/backend/emergenciasCRUD";
+import { createRisk } from "~/backend/dao/emergenciasCRUD";
 import * as Location from 'expo-location';
 import { Ionicons } from "@expo/vector-icons";
 import { UserContext } from '~/components/UserContext';
-import { getUser, updateUserRisks } from "~/backend/usuariosCRUD";
+import { getUser, updateUserRisks } from "~/backend/dao/usuariosCRUD";
 
 
 export const NewRiskButton = ({ onUpdate }: { onUpdate: () => void }) => {

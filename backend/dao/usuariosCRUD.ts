@@ -1,6 +1,6 @@
 import { User, createUserWithEmailAndPassword, deleteUser, signInWithEmailAndPassword } from 'firebase/auth';
-import { FIREBASE_DB } from './firebaseConfig'
-import { FIREBASE_AUTH } from './firebaseConfig'
+import { FIREBASE_DB } from '../config/firebaseConfig'
+import { FIREBASE_AUTH } from '../config/firebaseConfig'
 import { collection, deleteDoc, getDocs, getDoc, setDoc, doc, updateDoc } from 'firebase/firestore';
 import { Alert } from 'react-native';
 

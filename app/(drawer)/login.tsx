@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, Text, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { Button } from 'tamagui'
-import { createUser, login } from '~/backend/usuariosCRUD';
+import { createUser, login } from '~/backend/dao/usuariosCRUD';
 import { FormInput } from '~/components/FormInput';
 import { theme } from '~/components/theme';
 import { Container } from '~/tamagui.config'

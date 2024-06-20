@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { Alert, StyleSheet } from 'react-native';
 import { theme } from '~/components/theme';
-import { getUser, logout } from "~/backend/usuariosCRUD";
+import { getUser, logout } from "~/backend/dao/usuariosCRUD";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./UserContext";
 import { router } from "expo-router";

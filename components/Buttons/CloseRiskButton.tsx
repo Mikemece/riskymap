@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Dialog, Text, XStack } from "tamagui";
 import { theme } from "../theme";
 import { ActivityIndicator, Alert } from "react-native";
-import { closeRisk } from "~/backend/emergenciasCRUD";
+import { closeRisk } from "~/backend/dao/emergenciasCRUD";
 
 export const CloseRiskButton = (props: {id: string}) => {
 

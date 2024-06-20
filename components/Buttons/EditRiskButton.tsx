@@ -5,7 +5,7 @@ import { FormInput } from "../FormInput";
 import { Dropdown } from "react-native-element-dropdown";
 import { ActivityIndicator, Alert, Platform, StyleSheet } from 'react-native';
 import { categoriasFirebase, gravedad, theme } from "../theme";
-import { updateRiskInfo } from "~/backend/emergenciasCRUD";
+import { updateRiskInfo } from "~/backend/dao/emergenciasCRUD";
 
 export const EditRiskButton = (props: { id: string, titulo: string, categoria: string }) => {
 

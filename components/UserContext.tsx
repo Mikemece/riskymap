@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react'
 import { User, onAuthStateChanged } from 'firebase/auth';
-import { FIREBASE_AUTH } from '~/backend/firebaseConfig';
+import { FIREBASE_AUTH } from '~/backend/config/firebaseConfig';
 
 export const UserContext = createContext(null as User | null)
 
